@@ -140,6 +140,27 @@ class ChangesTest {
         kinds(snapshot(financingComplete = false), snapshot(vin = "V1", amountDue = 30000.0)).toSet(),
     )
 
+    private fun withoutFinancingTask(vararg keep: String): String {
+        val j = JSONObject(snapshot(financingComplete = false))
+        val tasks = j.getJSONObject(REF).getJSONObject("tasks").getJSONObject("tasks")
+        tasks.remove("financing")
+        keep.forEach { tasks.remove(it) }
+        return j.toString()
+    }
+
+    @Test fun `new actionable task is reported`() =
+        assertEquals(listOf(Changes.Kind.TASK_TODO), kinds(withoutFinancingTask(), snapshot(financingComplete = false)))
+
+    @Test fun `new task already done is not reported`() =
+        assertEquals(emptyList<Changes.Kind>(), kinds(withoutFinancingTask(), snapshot(financingComplete = true)))
+
+    // After a /tasks failure the stored tasks are empty: everything would look new.
+    @Test fun `no previous tasks, nothing is reported as new`() {
+        val j = JSONObject(snapshot(financingComplete = false))
+        j.getJSONObject(REF).put("tasks", JSONObject())
+        assertFalse(Changes.Kind.TASK_TODO in kinds(j.toString(), snapshot(financingComplete = false)))
+    }
+
     @Test fun `technical detail alone is not important`() {
         val old = JSONObject(snapshot())
         old.getJSONObject(REF).getJSONObject("order").put("vehicleMapId", 1)

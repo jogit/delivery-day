@@ -39,7 +39,11 @@ object Changes {
 
             val oldTasks = o.tasks.associateBy { it.id }
             for (t in n.tasks) {
-                val p = oldTasks[t.id] ?: continue
+                // A task Tesla just added is worth a ping if it is actionable (unless we had no tasks at all, e.g. after a /tasks failure).
+                val p = oldTasks[t.id] ?: run {
+                    if (oldTasks.isNotEmpty() && t.state == TaskState.TODO) changes += Change(Kind.TASK_TODO, o, n, t)
+                    continue
+                }
                 val kind = when {
                     p.state != TaskState.DONE && t.state == TaskState.DONE -> Kind.TASK_DONE
                     p.state == TaskState.LOCKED && t.state == TaskState.TODO -> Kind.TASK_TODO
