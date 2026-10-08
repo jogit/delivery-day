@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId = "app.deliveryday"
         minSdk = 26
-        targetSdk = 34
+        targetSdk = 36
         // Version comes from the release tag (vX.Y.Z → -Pdeliveryday.version=X.Y.Z in CI).
         // versionCode must always increase for Android to accept an update: X*10000 + Y*100 + Z.
         val version = providers.gradleProperty("deliveryday.version").orNull ?: "0.0.0"

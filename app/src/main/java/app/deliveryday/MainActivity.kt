@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -46,9 +47,11 @@ class MainActivity : ComponentActivity() {
         if (store.refreshToken != null && !store.needsLogin) schedule()
         if (Build.VERSION.SDK_INT >= 33) requestPermissions(arrayOf(Manifest.permission.POST_NOTIFICATIONS), 1)
 
+        // Enforced from target SDK 35: draw behind the system bars and pad the content ourselves.
+        enableEdgeToEdge()
         setContent {
             TeslaTheme {
-                Surface(Modifier.fillMaxSize()) { Screen() }
+                Surface(Modifier.fillMaxSize()) { Box(Modifier.safeDrawingPadding()) { Screen() } }
             }
         }
     }
