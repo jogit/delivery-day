@@ -24,6 +24,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.work.WorkManager
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -75,6 +77,9 @@ class MainActivity : ComponentActivity() {
             lastError = store.lastError; last = store.lastCheck; snapshot = store.snapshot
             if (store.needsLogin) connected = false
         }
+
+        // Back in the foreground: the background worker may have checked meanwhile (local read, no network call).
+        LifecycleEventEffect(Lifecycle.Event.ON_RESUME) { reload() }
 
         fun submit(u: String) {
             busy = true
