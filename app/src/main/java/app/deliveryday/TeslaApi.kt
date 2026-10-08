@@ -15,7 +15,7 @@ import java.util.Locale
 class AuthExpired : Exception("Tesla session expired")
 
 /** HTTP error response from the auth server (as opposed to a network problem). */
-class AuthHttpError(val code: Int, body: String) : Exception("Auth HTTP $code: $body")
+class AuthHttpError(val code: Int, val body: String) : Exception("Auth HTTP $code")
 
 /** Unofficial API used by the Tesla mobile app (OAuth PKCE, "ownerapi" client). */
 class TeslaApi(private val store: Store, private val http: OkHttpClient = OkHttpClient()) {
@@ -25,6 +25,8 @@ class TeslaApi(private val store: Store, private val http: OkHttpClient = OkHttp
         private const val REDIRECT = "tesla://auth/callback"
         private const val CLIENT_ID = "ownerapi"
         private const val SCOPE = "openid email offline_access"
+        /** Shared by all instances (worker, widget, buttons) so token refreshes never overlap. */
+        private val REFRESH_LOCK = Any()
 
         private fun rand(n: Int): String {
             val b = ByteArray(n); SecureRandom().nextBytes(b)
@@ -71,7 +73,9 @@ class TeslaApi(private val store: Store, private val http: OkHttpClient = OkHttp
         store.oauthState = null
     }
 
-    private fun refresh() {
+    /** [staleToken]: the access token that was refused; if another caller already replaced it, nothing to do. */
+    private fun refresh(staleToken: String? = null): Unit = synchronized(REFRESH_LOCK) {
+        if (staleToken != null && store.accessToken.let { it != null && it != staleToken }) return
         val rt = store.refreshToken ?: throw AuthExpired()
         val body = FormBody.Builder()
             .add("grant_type", "refresh_token")
@@ -79,9 +83,9 @@ class TeslaApi(private val store: Store, private val http: OkHttpClient = OkHttp
             .add("refresh_token", rt)
             .add("scope", SCOPE)
             .build()
-        // Only an explicit refusal from Tesla (400/401) invalidates the session; a network error is just retried.
+        // Only an explicit refusal from Tesla invalidates the session; a network error or another 400 is just retried.
         try { saveTokens(post(body)) } catch (e: AuthHttpError) {
-            if (e.code in 400..401) throw AuthExpired() else throw e
+            if (e.code == 401 || (e.code == 400 && e.body.contains("invalid_grant"))) throw AuthExpired() else throw e
         }
     }
 
@@ -101,12 +105,13 @@ class TeslaApi(private val store: Store, private val http: OkHttpClient = OkHttp
 
     private fun get(url: String, retry: Boolean = true): JSONObject {
         if (store.accessToken == null) refresh()
+        val token = store.accessToken
         val req = Request.Builder().url(url)
-            .header("Authorization", "Bearer ${store.accessToken}")
+            .header("Authorization", "Bearer $token")
             .header("User-Agent", "TeslaApp/${store.teslaAppVersion}")
             .build()
         http.newCall(req).execute().use {
-            if (it.code == 401 && retry) { refresh(); return get(url, false) }
+            if (it.code == 401 && retry) { refresh(token); return get(url, false) }
             if (it.code == 401) throw AuthExpired()
             val s = it.body.string()
             if (!it.isSuccessful) error("HTTP ${it.code} on $url")
