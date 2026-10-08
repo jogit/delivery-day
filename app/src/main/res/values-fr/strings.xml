@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_description">Fenêtre de livraison, nouveautés et avancement en un coup d\'œil</string>
+
+    <!-- Accueil -->
+    <string name="welcome_subtitle">De la commande jusqu\'à la livraison,\nsans ouvrir l\'app Tesla toutes les heures.</string>
+    <string name="feature_window_title">Fenêtre de livraison</string>
+    <string name="feature_window_text">Dates et compte à rebours, toujours à jour</string>
+    <string name="feature_alerts_title">Alertes utiles</string>
+    <string name="feature_alerts_text">VIN attribué, rendez-vous, paiement, démarches…</string>
+    <string name="feature_widget_title">Widget</string>
+    <string name="feature_widget_text">L\'essentiel directement sur l\'écran d\'accueil</string>
+    <string name="disclaimer_title">Application non officielle</string>
+    <string name="disclaimer_text">Sans lien avec Tesla. Elle lit votre commande via la même interface privée que l\'app Tesla, que Tesla peut modifier ou bloquer à tout moment. Vous vous connectez uniquement sur tesla.com, et votre accès reste chiffré sur ce téléphone.</string>
+    <string name="login_button">Se connecter avec son compte Tesla</string>
+    <string name="login_busy">Connexion en cours…</string>
+    <string name="login_hint">À la fin, si Android le demande, ouvrez le lien avec « %1$s ».</string>
+    <string name="manual_toggle">Un problème ? Coller l\'adresse manuellement</string>
+    <string name="manual_hide">Masquer</string>
+    <string name="manual_confirm">Valider</string>
+    <string name="relogin_needed">Tesla a fermé la session : reconnectez-vous.</string>
+
+    <!-- Écran principal -->
+    <string name="updated_at">Actualisé à %1$s</string>
+    <string name="updated_yesterday">Actualisé hier à %1$s</string>
+    <string name="updated_on">Actualisé le %1$s à %2$s</string>
+    <string name="never_updated">Jamais actualisé</string>
+    <string name="refreshing">Actualisation…</string>
+    <string name="action_refresh">Actualiser</string>
+    <string name="menu_raw_show">Données brutes</string>
+    <string name="menu_raw_hide">Masquer les données brutes</string>
+    <string name="menu_logout">Se déconnecter</string>
+    <string name="logout_title">Se déconnecter ?</string>
+    <string name="logout_text">Le suivi s\'arrête jusqu\'à la prochaine connexion. Votre estimation de reprise et l\'historique sont conservés.</string>
+    <string name="cancel">Annuler</string>
+    <string name="ok">OK</string>
+    <string name="error_prefix">Erreur : %1$s</string>
+    <string name="tasks_error">⚠ Tesla ne fournit plus les infos de livraison et les démarches (%1$s). Affichage des dernières infos connues.</string>
+    <string name="no_orders">Aucune commande trouvée pour l\'instant.</string>
+    <string name="auto_check_hourly">Vérification automatique toutes les heures · tirez vers le bas pour actualiser.</string>
+    <string name="auto_check_fast">Vérification automatique toutes les ~15 min (livraison proche) · tirez vers le bas pour actualiser.</string>
+
+    <!-- Nouveautés -->
+    <string name="news_none">Rien de nouveau</string>
+    <string name="news_since">depuis le %1$s</string>
+    <string name="ago_today">aujourd\'hui</string>
+    <string name="ago_yesterday">hier</string>
+    <plurals name="ago_days">
+        <item quantity="one">il y a %d jour</item>
+        <item quantity="many">il y a %d jours</item>
+        <item quantity="other">il y a %d jours</item>
+    </plurals>
+
+    <!-- Voiture -->
+    <string name="vin_value">VIN %1$s</string>
+    <string name="vin_pending">VIN pas encore attribué</string>
+
+    <!-- Livraison -->
+    <string name="section_delivery">Livraison</string>
+    <plurals name="window_opens_in">
+        <item quantity="one">Début de la fenêtre dans %d jour</item>
+        <item quantity="many">Début de la fenêtre dans %d jours</item>
+        <item quantity="other">Début de la fenêtre dans %d jours</item>
+    </plurals>
+    <plurals name="window_open_ends_in">
+        <item quantity="one">Fenêtre en cours · fin dans %d jour</item>
+        <item quantity="many">Fenêtre en cours · fin dans %d jours</item>
+        <item quantity="other">Fenêtre en cours · fin dans %d jours</item>
+    </plurals>
+    <string name="window_passed">Fenêtre dépassée</string>
+    <string name="window_unknown">Pas encore de fenêtre de livraison</string>
+    <string name="window_none">aucune</string>
+    <string name="label_place">Lieu</string>
+    <string name="label_method">Mode</string>
+    <string name="label_appointment">Rendez-vous</string>
+    <string name="appointment_set_details">Fixé (détails dans l\'app Tesla)</string>
+    <string name="appointment_later">À planifier plus tard</string>
+    <string name="timeline_order">Commande</string>
+    <string name="timeline_earliest">Au plus tôt</string>
+    <string name="timeline_latest">Au plus tard</string>
+    <string name="timeline_today">Aujourd\'hui · %1$s</string>
+
+    <!-- Avancement -->
+    <string name="section_progress">Où en est-on ?</string>
+    <string name="step_ordered">Commandée</string>
+    <string name="step_assigned">Voiture attribuée</string>
+    <string name="step_appointment">Rendez-vous</string>
+    <string name="step_appointment_short">RDV</string>
+    <string name="step_delivered">Livrée</string>
+
+    <!-- Paiement -->
+    <string name="section_payment">Paiement</string>
+    <string name="remaining">Reste à payer</string>
+    <string name="remaining_after_trade_in">Reste à payer après reprise</string>
+    <string name="remaining_included">Reste à payer (reprise incluse)</string>
+    <string name="amount_requested">Montant demandé par Tesla</string>
+    <string name="trade_in_official">Reprise (offre Tesla)</string>
+    <string name="trade_in_estimate">Reprise (estimation)</string>
+    <string name="trade_in_deducted">✓ Déjà déduite par Tesla du montant à payer</string>
+    <string name="your_estimate">Votre estimation : %1$s</string>
+    <string name="trade_in_input">Reprise estimée (%1$s)</string>
+    <string name="trade_in_add">+ Saisir le montant de reprise estimé</string>
+    <string name="trade_in_edit">Modifier l\'estimation de reprise</string>
+    <string name="trade_in_status">Statut Tesla : %1$s</string>
+
+    <!-- Historique -->
+    <string name="section_history">Historique</string>
+    <plurals name="history_count">
+        <item quantity="one">%d changement</item>
+        <item quantity="many">%d changements</item>
+        <item quantity="other">%d changements</item>
+    </plurals>
+    <string name="history_empty">Les changements apparaîtront ici au fil de l\'eau.</string>
+    <string name="history_ordered">Commande passée</string>
+    <string name="see_all">Tout voir (%1$d)</string>
+    <string name="see_less">Voir moins</string>
+
+    <!-- Démarches et configuration -->
+    <string name="section_todo">À faire dans l\'app Tesla</string>
+    <string name="section_tasks">Démarches Tesla</string>
+    <string name="tasks_summary">%1$d/%2$d terminées · %3$s</string>
+    <string name="tasks_nothing">rien à faire</string>
+    <plurals name="tasks_todo">
+        <item quantity="one">%d à faire</item>
+        <item quantity="many">%d à faire</item>
+        <item quantity="other">%d à faire</item>
+    </plurals>
+    <string name="section_config">Configuration</string>
+    <string name="config_default">Options du véhicule</string>
+    <string name="label_owners">Titulaire(s)</string>
+    <string name="label_ordered_on">Commandée le</string>
+
+    <!-- Codes Tesla -->
+    <string name="status_booked">Commande confirmée</string>
+    <string name="status_allocated">Véhicule attribué</string>
+    <string name="status_in_transit">En transit</string>
+    <string name="status_delivered">Livrée</string>
+    <string name="status_cancelled">Annulée</string>
+    <string name="task_delivery_details">Informations de livraison</string>
+    <string name="task_incentives">Aides et bonus</string>
+    <string name="task_trade_in">Reprise de véhicule</string>
+    <string name="task_financing">Financement</string>
+    <string name="task_registration">Immatriculation</string>
+    <string name="task_scheduling">Rendez-vous de livraison</string>
+    <string name="task_insurance">Assurance</string>
+    <string name="task_final_payment">Paiement final</string>
+    <string name="task_delivery_acceptance">Acceptation de la livraison</string>
+    <string name="delivery_pickup">Retrait au centre de livraison</string>
+    <string name="delivery_home">Livraison à domicile</string>
+    <string name="tradein_no_offer">Pas encore d\'offre officielle : Tesla l\'étudiera une fois le véhicule attribué</string>
+    <string name="tradein_offer_ready">Offre de reprise disponible</string>
+    <string name="tradein_offer_accepted">Offre de reprise acceptée</string>
+    <string name="tradein_offer_expired">Offre de reprise expirée</string>
+    <string name="tradein_offer_pending">Offre de reprise en attente</string>
+    <string name="trim_mty85">Propulsion · Standard</string>
+    <string name="paint_ppsw">Blanc Nacré Multicouches</string>
+    <string name="paint_pbsb">Noir Uni</string>
+    <string name="paint_pmng">Gris Minuit Métallisé</string>
+    <string name="paint_pn01">Gris Stealth</string>
+    <string name="paint_ppsb">Bleu Outremer Métallisé</string>
+    <string name="paint_pr01">Rouge Ultra</string>
+    <string name="paint_ppmr">Rouge Multicouches</string>
+    <string name="paint_pmss">Argent Métallisé</string>
+    <string name="paint_pn00">Gris Quicksilver</string>
+    <string name="opt_5_seats">5 places</string>
+    <string name="opt_7_seats">7 places</string>
+    <string name="opt_basic_autopilot">Autopilot de base</string>
+    <string name="opt_fsd">Conduite autonome (FSD)</string>
+    <string name="opt_supercharging_paid">Superchargeurs à l\'usage</string>
+    <string name="opt_towing">Pack attelage</string>
+    <string name="opt_all_black_interior">Intérieur tout noir</string>
+    <string name="opt_black_interior">Intérieur noir</string>
+    <string name="opt_black_white_interior">Intérieur noir et blanc</string>
+    <string name="opt_wheels_18_aperture">Jantes Aperture 18\"</string>
+    <string name="opt_wheels_19">Jantes 19\"</string>
+    <string name="opt_wheels_20">Jantes 20\"</string>
+    <string name="opt_connectivity_standard">Connectivité standard</string>
+    <string name="opt_connectivity_premium">Connectivité Premium</string>
+
+    <!-- Changements / notifications -->
+    <string name="ch_new_order">Nouvelle commande</string>
+    <string name="ch_vin_assigned">VIN attribué</string>
+    <string name="ch_vin_changed">VIN modifié</string>
+    <string name="ch_status">Statut de la commande</string>
+    <string name="ch_window">Fenêtre de livraison modifiée</string>
+    <string name="ch_appointment_set">Rendez-vous de livraison fixé</string>
+    <string name="ch_appointment_changed">Rendez-vous modifié</string>
+    <string name="ch_place">Lieu de livraison</string>
+    <string name="ch_amount">Montant à payer modifié</string>
+    <string name="ch_trade_in">Reprise</string>
+    <string name="ch_trade_in_offer">Offre de reprise Tesla</string>
+    <string name="ch_task_done">Terminé</string>
+    <string name="ch_task_todo">À faire : %1$s</string>
+    <string name="ch_line">%1$s : %2$s</string>
+    <string name="open_tesla_app">Ouvrir l\'app Tesla</string>
+    <plurals name="notif_updates">
+        <item quantity="one">Commande : %d nouveauté</item>
+        <item quantity="many">Commande : %d nouveautés</item>
+        <item quantity="other">Commande : %d nouveautés</item>
+    </plurals>
+    <plurals name="headline_more">
+        <item quantity="one">%1$s + %2$d autre</item>
+        <item quantity="many">%1$s + %2$d autres</item>
+        <item quantity="other">%1$s + %2$d autres</item>
+    </plurals>
+    <string name="notif_public">Nouveauté sur la commande</string>
+    <string name="notif_channel">Nouveautés de la commande</string>
+    <string name="notif_tasks_error_title">⚠️ Infos de livraison indisponibles</string>
+    <string name="notif_tasks_error_text">Tesla refuse la requête (%1$s). L\'app affiche les dernières infos connues.</string>
+    <string name="notif_relogin_title">Reconnexion nécessaire</string>
+    <string name="notif_relogin_text">Ouvrez l\'app pour vous reconnecter.</string>
+
+    <!-- Widget -->
+    <string name="w_title">Livraison de la %1$s</string>
+    <string name="w_between">Entre le %1$s et le %2$s</string>
+    <plurals name="w_at_least">
+        <item quantity="one">Encore au moins %d jour</item>
+        <item quantity="many">Encore au moins %d jours</item>
+        <item quantity="other">Encore au moins %d jours</item>
+    </plurals>
+    <string name="w_tomorrow">Peut-être dès demain</string>
+    <plurals name="w_soon">
+        <item quantity="one">C\'est pour bientôt, au plus tard dans %d jour</item>
+        <item quantity="many">C\'est pour bientôt, au plus tard dans %d jours</item>
+        <item quantity="other">C\'est pour bientôt, au plus tard dans %d jours</item>
+    </plurals>
+    <string name="w_passed">Date de livraison dépassée</string>
+    <string name="w_appointment">Rendez-vous : %1$s</string>
+    <string name="w_appointment_set">Rendez-vous fixé !</string>
+    <string name="w_no_window">Date de livraison pas encore connue</string>
+    <string name="w_not_connected">Pas encore connecté</string>
+    <string name="w_open_app">Ouvrez l\'app pour vous connecter</string>
+    <string name="w_nothing_since">Rien de nouveau depuis le %1$s</string>
+</resources>

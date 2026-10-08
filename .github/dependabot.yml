@@ -1,0 +1,13 @@
+# Weekly pull requests to keep GitHub Actions and Gradle dependencies up to date
+# (each one is checked by the CI before you merge it).
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: gradle
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5

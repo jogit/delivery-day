@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Delivery Day</string>
+    <string name="widget_description">Delivery window, news and progress at a glance</string>
+
+    <!-- Welcome -->
+    <string name="welcome_subtitle">From order to delivery,\nwithout opening the Tesla app every hour.</string>
+    <string name="feature_window_title">Delivery window</string>
+    <string name="feature_window_text">Dates and countdown, always up to date</string>
+    <string name="feature_alerts_title">Useful alerts</string>
+    <string name="feature_alerts_text">VIN assigned, appointment, payment, tasks…</string>
+    <string name="feature_widget_title">Widget</string>
+    <string name="feature_widget_text">The essentials right on your home screen</string>
+    <string name="disclaimer_title">Unofficial app</string>
+    <string name="disclaimer_text">Not affiliated with Tesla. It reads your order through the same private interface as the Tesla app, which Tesla can change or block at any time. You sign in on tesla.com only, and your access stays encrypted on this phone.</string>
+    <string name="login_button">Sign in with your Tesla account</string>
+    <string name="login_busy">Signing in…</string>
+    <string name="login_hint">At the end, if Android asks, open the link with “%1$s”.</string>
+    <string name="manual_toggle">Having trouble? Paste the address manually</string>
+    <string name="manual_hide">Hide</string>
+    <string name="manual_confirm">Confirm</string>
+    <string name="relogin_needed">Tesla ended the session: please sign in again.</string>
+
+    <!-- Main screen -->
+    <string name="updated_at">Updated at %1$s</string>
+    <string name="updated_yesterday">Updated yesterday at %1$s</string>
+    <string name="updated_on">Updated %1$s at %2$s</string>
+    <string name="never_updated">Never updated</string>
+    <string name="refreshing">Updating…</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="menu_raw_show">Raw data</string>
+    <string name="menu_raw_hide">Hide raw data</string>
+    <string name="menu_logout">Sign out</string>
+    <string name="logout_title">Sign out?</string>
+    <string name="logout_text">Tracking stops until you sign in again. Your trade-in estimate and the history are kept.</string>
+    <string name="cancel">Cancel</string>
+    <string name="ok">OK</string>
+    <string name="error_prefix">Error: %1$s</string>
+    <string name="tasks_error">⚠ Tesla no longer provides the delivery details and tasks (%1$s). Showing the last known information.</string>
+    <string name="no_orders">No order found yet.</string>
+    <string name="auto_check_hourly">Checked automatically every hour · pull down to refresh.</string>
+    <string name="auto_check_fast">Checked automatically every ~15 min (delivery is near) · pull down to refresh.</string>
+
+    <!-- News -->
+    <string name="news_none">Nothing new</string>
+    <string name="news_since">since %1$s</string>
+    <string name="ago_today">today</string>
+    <string name="ago_yesterday">yesterday</string>
+    <plurals name="ago_days">
+        <item quantity="one">%d day ago</item>
+        <item quantity="other">%d days ago</item>
+    </plurals>
+
+    <!-- Car -->
+    <string name="vin_value">VIN %1$s</string>
+    <string name="vin_pending">VIN not assigned yet</string>
+
+    <!-- Delivery -->
+    <string name="section_delivery">Delivery</string>
+    <plurals name="window_opens_in">
+        <item quantity="one">Window opens in %d day</item>
+        <item quantity="other">Window opens in %d days</item>
+    </plurals>
+    <plurals name="window_open_ends_in">
+        <item quantity="one">Window open · ends in %d day</item>
+        <item quantity="other">Window open · ends in %d days</item>
+    </plurals>
+    <string name="window_passed">Window has passed</string>
+    <string name="window_unknown">No delivery window yet</string>
+    <string name="window_none">none</string>
+    <string name="label_place">Location</string>
+    <string name="label_method">Method</string>
+    <string name="label_appointment">Appointment</string>
+    <string name="appointment_set_details">Set (details in the Tesla app)</string>
+    <string name="appointment_later">To be scheduled later</string>
+    <string name="timeline_order">Order</string>
+    <string name="timeline_earliest">Earliest</string>
+    <string name="timeline_latest">Latest</string>
+    <string name="timeline_today">Today · %1$s</string>
+
+    <!-- Progress -->
+    <string name="section_progress">Where are we?</string>
+    <string name="step_ordered">Ordered</string>
+    <string name="step_assigned">Car assigned</string>
+    <string name="step_appointment">Appointment</string>
+    <string name="step_appointment_short">Appt.</string>
+    <string name="step_delivered">Delivered</string>
+
+    <!-- Payment -->
+    <string name="section_payment">Payment</string>
+    <string name="remaining">Left to pay</string>
+    <string name="remaining_after_trade_in">Left to pay after trade-in</string>
+    <string name="remaining_included">Left to pay (trade-in included)</string>
+    <string name="amount_requested">Amount requested by Tesla</string>
+    <string name="trade_in_official">Trade-in (Tesla offer)</string>
+    <string name="trade_in_estimate">Trade-in (estimate)</string>
+    <string name="trade_in_deducted">✓ Already deducted by Tesla from the amount due</string>
+    <string name="your_estimate">Your estimate: %1$s</string>
+    <string name="trade_in_input">Estimated trade-in (%1$s)</string>
+    <string name="trade_in_add">+ Enter your estimated trade-in value</string>
+    <string name="trade_in_edit">Edit trade-in estimate</string>
+    <string name="trade_in_status">Tesla status: %1$s</string>
+
+    <!-- History -->
+    <string name="section_history">History</string>
+    <plurals name="history_count">
+        <item quantity="one">%d change</item>
+        <item quantity="other">%d changes</item>
+    </plurals>
+    <string name="history_empty">Changes will show up here as they happen.</string>
+    <string name="history_ordered">Order placed</string>
+    <string name="see_all">See all (%1$d)</string>
+    <string name="see_less">See less</string>
+
+    <!-- Tasks and configuration -->
+    <string name="section_todo">To do in the Tesla app</string>
+    <string name="section_tasks">Tesla tasks</string>
+    <string name="tasks_summary">%1$d/%2$d completed · %3$s</string>
+    <string name="tasks_nothing">nothing to do</string>
+    <plurals name="tasks_todo">
+        <item quantity="one">%d to do</item>
+        <item quantity="other">%d to do</item>
+    </plurals>
+    <string name="section_config">Configuration</string>
+    <string name="config_default">Vehicle options</string>
+    <string name="label_owners">Owner(s)</string>
+    <string name="label_ordered_on">Ordered on</string>
+
+    <!-- Tesla codes -->
+    <string name="status_booked">Order confirmed</string>
+    <string name="status_allocated">Car allocated</string>
+    <string name="status_in_transit">In transit</string>
+    <string name="status_delivered">Delivered</string>
+    <string name="status_cancelled">Cancelled</string>
+    <string name="task_delivery_details">Delivery details</string>
+    <string name="task_incentives">Incentives</string>
+    <string name="task_trade_in">Trade-in</string>
+    <string name="task_financing">Financing</string>
+    <string name="task_registration">Registration</string>
+    <string name="task_scheduling">Delivery appointment</string>
+    <string name="task_insurance">Insurance</string>
+    <string name="task_final_payment">Final payment</string>
+    <string name="task_delivery_acceptance">Delivery acceptance</string>
+    <string name="delivery_pickup">Pickup at the delivery center</string>
+    <string name="delivery_home">Home delivery</string>
+    <string name="tradein_no_offer">No official offer yet: Tesla will review it once a car is assigned</string>
+    <string name="tradein_offer_ready">Trade-in offer available</string>
+    <string name="tradein_offer_accepted">Trade-in offer accepted</string>
+    <string name="tradein_offer_expired">Trade-in offer expired</string>
+    <string name="tradein_offer_pending">Trade-in offer pending</string>
+    <string name="trim_mty85">Rear-Wheel Drive · Standard</string>
+    <string name="paint_ppsw">Pearl White Multi-Coat</string>
+    <string name="paint_pbsb">Solid Black</string>
+    <string name="paint_pmng">Midnight Silver Metallic</string>
+    <string name="paint_pn01">Stealth Grey</string>
+    <string name="paint_ppsb">Deep Blue Metallic</string>
+    <string name="paint_pr01">Ultra Red</string>
+    <string name="paint_ppmr">Red Multi-Coat</string>
+    <string name="paint_pmss">Silver Metallic</string>
+    <string name="paint_pn00">Quicksilver</string>
+    <string name="opt_5_seats">5 seats</string>
+    <string name="opt_7_seats">7 seats</string>
+    <string name="opt_basic_autopilot">Basic Autopilot</string>
+    <string name="opt_fsd">Full Self-Driving</string>
+    <string name="opt_supercharging_paid">Pay-per-use Supercharging</string>
+    <string name="opt_towing">Tow hitch</string>
+    <string name="opt_all_black_interior">All-black interior</string>
+    <string name="opt_black_interior">Black interior</string>
+    <string name="opt_black_white_interior">Black and white interior</string>
+    <string name="opt_wheels_18_aperture">18\" Aperture wheels</string>
+    <string name="opt_wheels_19">19\" wheels</string>
+    <string name="opt_wheels_20">20\" wheels</string>
+    <string name="opt_connectivity_standard">Standard connectivity</string>
+    <string name="opt_connectivity_premium">Premium connectivity</string>
+
+    <!-- Changes / notifications -->
+    <string name="ch_new_order">New order</string>
+    <string name="ch_vin_assigned">VIN assigned</string>
+    <string name="ch_vin_changed">VIN changed</string>
+    <string name="ch_status">Order status</string>
+    <string name="ch_window">Delivery window changed</string>
+    <string name="ch_appointment_set">Delivery appointment set</string>
+    <string name="ch_appointment_changed">Appointment changed</string>
+    <string name="ch_place">Delivery location</string>
+    <string name="ch_amount">Amount due changed</string>
+    <string name="ch_trade_in">Trade-in</string>
+    <string name="ch_trade_in_offer">Tesla trade-in offer</string>
+    <string name="ch_task_done">Completed</string>
+    <string name="ch_task_todo">To do: %1$s</string>
+    <string name="ch_line">%1$s: %2$s</string>
+    <string name="open_tesla_app">Open the Tesla app</string>
+    <plurals name="notif_updates">
+        <item quantity="one">Car order: %d update</item>
+        <item quantity="other">Car order: %d updates</item>
+    </plurals>
+    <plurals name="headline_more">
+        <item quantity="one">%1$s + %2$d more</item>
+        <item quantity="other">%1$s + %2$d more</item>
+    </plurals>
+    <string name="notif_public">Order update</string>
+    <string name="notif_channel">Order updates</string>
+    <string name="notif_tasks_error_title">⚠️ Delivery details unavailable</string>
+    <string name="notif_tasks_error_text">Tesla is refusing the request (%1$s). The app shows the last known information.</string>
+    <string name="notif_relogin_title">Sign-in required</string>
+    <string name="notif_relogin_text">Open the app to sign in again.</string>
+
+    <!-- Widget -->
+    <string name="w_title">%1$s delivery</string>
+    <string name="w_between">Between %1$s and %2$s</string>
+    <plurals name="w_at_least">
+        <item quantity="one">At least %d more day</item>
+        <item quantity="other">At least %d more days</item>
+    </plurals>
+    <string name="w_tomorrow">Maybe as soon as tomorrow</string>
+    <plurals name="w_soon">
+        <item quantity="one">Coming soon, %d day left at most</item>
+        <item quantity="other">Coming soon, %d days left at most</item>
+    </plurals>
+    <string name="w_passed">Delivery date has passed</string>
+    <string name="w_appointment">Appointment: %1$s</string>
+    <string name="w_appointment_set">Appointment set!</string>
+    <string name="w_no_window">Delivery date not known yet</string>
+    <string name="w_not_connected">Not signed in</string>
+    <string name="w_open_app">Open the app to sign in</string>
+    <string name="w_nothing_since">Nothing new since %1$s</string>
+</resources>

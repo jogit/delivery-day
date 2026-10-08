@@ -1,0 +1,5 @@
+# Keep the Unix wrapper script runnable on Linux CI runners
+* text=auto
+gradlew text eol=lf
+*.bat text eol=crlf
+*.jar binary

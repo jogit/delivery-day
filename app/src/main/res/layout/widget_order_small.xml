@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- One-row widget: the dates, then the latest news or the countdown, and refresh. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget_root"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="horizontal" android:gravity="center_vertical"
+    android:paddingStart="14dp" android:paddingEnd="8dp" android:paddingTop="4dp" android:paddingBottom="4dp"
+    android:background="@drawable/widget_bg">
+
+    <ImageView android:layout_width="22dp" android:layout_height="22dp"
+        android:src="@drawable/ic_car" android:tint="@color/tesla_red" android:contentDescription="@null" />
+
+    <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+        android:layout_marginStart="10dp" android:orientation="vertical">
+        <TextView android:id="@+id/w_window" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textColor="@color/text" android:textSize="17sp" android:textStyle="bold"
+            android:maxLines="1" android:ellipsize="end" />
+        <TextView android:id="@+id/w_countdown" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:textColor="@color/amber" android:textSize="13sp" android:maxLines="1" android:ellipsize="end" />
+    </LinearLayout>
+
+    <ImageView android:id="@+id/w_refresh" android:layout_width="34dp" android:layout_height="34dp"
+        android:layout_marginStart="6dp" android:padding="8dp" android:background="@drawable/widget_refresh_bg"
+        android:src="@drawable/ic_refresh" android:tint="@color/text"
+        android:contentDescription="@string/action_refresh" />
+</LinearLayout>

@@ -1,0 +1,207 @@
+{
+ "id": "TradeIn",
+ "complete": false,
+ "default": false,
+ "enabled": false,
+ "required": true,
+ "status": "NO_ESTIMATE_SELF_INSPECTION",
+ "previousStatus": "NO_ESTIMATE_SELF_INSPECTION",
+ "tradeInIntent": "Yes",
+ "intentMake": "OTHER",
+ "isMatched": false,
+ "isScanDocumentEnabled": false,
+ "countryCode": "FR",
+ "currencyCode": "EUR",
+ "languageCode": "fr",
+ "locale": "fr-FR",
+ "modelCode": "my",
+ "nextStep": "vinForm",
+ "shouldShowWarningModal": true,
+ "canAcceptOffer": false,
+ "isEMEA": true,
+ "countriesUsingFrameNumbers": [
+  "JP",
+  "SG"
+ ],
+ "tradeInVehicle": null,
+ "formInitialValues": {
+  "trade_in_confirm_vehicle_details_screen": {
+   "RegistrationNumber": "",
+   "TradeinVin": "",
+   "Year": "",
+   "Make": "",
+   "Model": "",
+   "Trim": "",
+   "ExteriorColor": "",
+   "OdometerType": "KM"
+  },
+  "trade_in_vin_form_screen": {
+   "TradeinVin": "",
+   "RegistrationNumber": "",
+   "RegistrationState": "",
+   "OwnerId": ""
+  },
+  "trade_in_document_list_screen": {
+   "documents": [
+    {
+     "title": "",
+     "files": [
+      {
+       "type": "RegistrationDocumentPart1Front",
+       "subtitle": "Devant"
+      },
+      {
+       "type": "RegistrationDocumentPart1Back",
+       "subtitle": "Verso"
+      }
+     ]
+    }
+   ],
+   "description": "Téléchargez le certificat d'immatriculation obtenu auprès de l'autorité d'immatriculation"
+  },
+  "trade_in_odometer_screen": [],
+  "trade_in_tire_rim_screen": [],
+  "trade_in_partner_information_screen": [],
+  "trade_in_photo_interior_collection_screen": [],
+  "trade_in_registration_details_screen": {
+   "FirstRegistrationDate": null,
+   "Owner": null,
+   "RegistrationNumber": null,
+   "RegistrationType": "",
+   "SamePrimaryRegistrant": null,
+   "SecondOwner": null
+  },
+  "trade_in_vehicle_condition_screen": {
+   "AccidentHistory": "",
+   "AccidentRepairCost": "",
+   "ExteriorColor": "",
+   "KeyCount": "",
+   "Odometer": "",
+   "OverallCondition": ""
+  },
+  "trade_in_vehicle_condition_other_screen": {
+   "AfterMarketParts": "",
+   "ChargingEquipment": [],
+   "HasAfterMarketParts": "",
+   "LastServiceDate": "",
+   "LastServiceDateOdometer": "",
+   "ServiceHistory": "",
+   "SmokedInVehicle": "",
+   "TireSet": []
+  },
+  "trade_in_vehicle_damage_question_screen": {
+   "Drivable": "",
+   "ExteriorDamage": "",
+   "IsDamage": "",
+   "MechanicalDefectsOrDashboardWarnings": "",
+   "MechanicalDefectsOrDashboardNotes": "",
+   "WheelDamage": "",
+   "WindshieldDamage": ""
+  },
+  "trade_in_vehicle_damage_screen": [],
+  "trade_in_vehicle_inspection_screen": [],
+  "trade_in_upload_documents_screen": {
+   "documents": [
+    {
+     "title": "",
+     "files": [
+      {
+       "type": "RegistrationDocumentPart1Front",
+       "subtitle": "Devant"
+      },
+      {
+       "type": "RegistrationDocumentPart1Back",
+       "subtitle": "Verso"
+      }
+     ]
+    }
+   ],
+   "description": "Téléchargez le certificat d'immatriculation obtenu auprès de l'autorité d'immatriculation"
+  }
+ },
+ "currencyDisplay": "",
+ "transfers": {
+  "sequence": [],
+  "FSD_TRANSFER": {
+   "eligibleDates": null,
+   "eligibleTeslas": [],
+   "enabled": false,
+   "hasAcknowledgedTransfer": null,
+   "intent": null,
+   "isEligible": false,
+   "isTradingTeslaWithFeature": false,
+   "selectedTesla": null,
+   "showIntent": false,
+   "showSelectScreen": false,
+   "shouldValidateFSDTransfer": false,
+   "termsConditions": {
+    "title": "",
+    "content": [],
+    "visible": false
+   }
+  },
+  "EAP_TRANSFER": {
+   "eligibleDates": null,
+   "eligibleTeslas": [],
+   "enabled": false,
+   "hasAcknowledgedTransfer": null,
+   "intent": null,
+   "isEligible": false,
+   "isTradingTeslaWithFeature": false,
+   "selectedTesla": null,
+   "showIntent": false,
+   "showSelectScreen": false,
+   "shouldValidateFSDTransfer": false,
+   "termsConditions": {
+    "title": "",
+    "content": [],
+    "visible": false
+   }
+  },
+  "SUPER_CHARGE_TRANSFER": {
+   "eligibleDates": null,
+   "eligibleTeslas": [],
+   "enabled": false,
+   "hasAcknowledgedTransfer": null,
+   "intent": null,
+   "isEligible": false,
+   "isTradingTeslaWithFeature": false,
+   "selectedTesla": null,
+   "showIntent": false,
+   "showSelectScreen": false,
+   "shouldValidateFSDTransfer": false,
+   "termsConditions": {
+    "title": "",
+    "content": [],
+    "visible": false
+   }
+  }
+ },
+ "tradeInUpliftDetails": {
+  "enabled": false,
+  "visible": false,
+  "amount": 0,
+  "totalOfferWithUplift": null,
+  "grossTradeInCredit": null,
+  "termsType": "TRADEIN_UPLIFT_TERMS"
+ },
+ "incentives": [],
+ "isRightHandDrive": false,
+ "questionnaireEnabledByCategory": {
+  "details": false,
+  "condition": false,
+  "registration": false,
+  "financing": false,
+  "damage": false
+ },
+ "orderPlacedDate": "2026-01-15T10:00:00.00000",
+ "order": 3,
+ "card": {
+  "title": "Avez-vous un véhicule à faire reprendre?",
+  "subtitle": "Effectuez la reprise de votre véhicule et déduisez sa valeur du prix de votre nouvelle Tesla",
+  "buttonText": {
+   "yes": "Oui",
+   "no": "Non"
+  }
+ }
+}

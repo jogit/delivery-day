@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Countdown ring (track + red progress) around the car, on Android's 108x108 adaptive grid. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp" android:viewportWidth="108" android:viewportHeight="108">
+    <path android:pathData="M54,29a25,25 0,1 1,0 50a25,25 0,1 1,0 -50"
+        android:strokeColor="#FF343941" android:strokeWidth="6" android:fillColor="#00000000" />
+    <path android:pathData="M54,29a25,25 0,1 1,-25 25"
+        android:strokeColor="#FFE8342E" android:strokeWidth="6" android:strokeLineCap="round" android:fillColor="#00000000" />
+    <group android:scaleX="0.42" android:scaleY="0.42" android:translateX="33" android:translateY="46.365">
+        <path android:fillColor="#FFFFFFFF" android:fillType="evenOdd" android:pathData="M6,30C5.2,28 5,26 5.5,23C6,21 6.8,19.3 8,18C14,12 26,7 40,6C52,5.2 60,7 67,12C74,15 84,15.5 90,17C93,18 95,20 95,23L95,28C95,29.5 94,30 93,30L87.5,30A9.5,9.5 0,0 0,68.5 30L31.5,30A9.5,9.5 0,0 0,12.5 30ZM21,16.5C26,11.5 32,9 40,8.6L42,8.6L42,16.5ZM44.5,8.6L57,8.6C60,8.8 62.5,10.2 64.5,12.6L62.8,16.5L44.5,16.5Z" />
+        <path android:fillColor="#FFFFFFFF" android:fillType="evenOdd" android:pathData="M22,22.5a7.5,7.5 0,1 0,0.01 0ZM22,27a3,3 0,1 1,-0.01 0ZM78,22.5a7.5,7.5 0,1 0,0.01 0ZM78,27a3,3 0,1 1,-0.01 0Z" />
+    </group>
+</vector>
