@@ -88,7 +88,7 @@ class TeslaApi(private val store: Store, private val http: OkHttpClient = OkHttp
     private fun post(body: FormBody): JSONObject {
         val req = Request.Builder().url("$AUTH/token").post(body).build()
         http.newCall(req).execute().use {
-            val s = it.body?.string().orEmpty()
+            val s = it.body.string()
             if (!it.isSuccessful) throw AuthHttpError(it.code, s)
             return JSONObject(s)
         }
@@ -108,7 +108,7 @@ class TeslaApi(private val store: Store, private val http: OkHttpClient = OkHttp
         http.newCall(req).execute().use {
             if (it.code == 401 && retry) { refresh(); return get(url, false) }
             if (it.code == 401) throw AuthExpired()
-            val s = it.body?.string().orEmpty()
+            val s = it.body.string()
             if (!it.isSuccessful) error("HTTP ${it.code} on $url")
             return JSONObject(s)
         }
