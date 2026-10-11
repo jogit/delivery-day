@@ -113,6 +113,9 @@ fun WelcomeView(busy: Boolean, error: String?, onLogin: () -> Unit, onPaste: (St
                 }
             }
         }
+
+        Spacer(Modifier.height(16.dp))
+        Text(stringResource(R.string.app_version, appVersion()), color = TeslaColors.Muted, fontSize = 12.sp)
     }
 }
 

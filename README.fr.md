@@ -50,6 +50,14 @@ Disponible en français et en anglais (suit la langue du téléphone).
 
 La connexion crée une session séparée : elle n'a aucun effet sur l'app Tesla officielle.
 
+### Mises à jour automatiques (facultatif)
+
+L'app n'est pas sur le Play Store : rien ne prévient d'une nouvelle version. Avec
+[Obtainium](https://github.com/ImranR98/Obtainium) (une app gratuite et open source qui installe et met
+à jour des apps depuis leurs releases GitHub), ajoutez `https://github.com/jogit/delivery-day` : il
+installe le dernier APK et propose chaque nouvelle release comme mise à jour. La mise à jour s'installe
+par-dessus l'app existante, vous restez connecté. La version de l'app est affichée en bas de l'écran principal.
+
 ## Fonctionnement
 
 - Vérification toutes les heures, toutes les 15 min quand la livraison approche (VIN attribué,

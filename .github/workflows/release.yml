@@ -64,12 +64,26 @@ jobs:
           mv "$APK" "DeliveryDay-$VERSION.apk"
           sha256sum "DeliveryDay-$VERSION.apk" > "DeliveryDay-$VERSION.apk.sha256"
 
+      - name: Release notes
+        run: |
+          awk -v v="$VERSION" '/^## /{p=($2==v); next} p' CHANGELOG.md > notes.md
+          if [ -s notes.md ]; then
+            {
+              echo
+              echo '---'
+              echo 'Install: download the APK below, or add `https://github.com/jogit/delivery-day` to [Obtainium](https://github.com/ImranR98/Obtainium) for automatic updates.'
+            } >> notes.md
+          else
+            echo "No CHANGELOG.md section for $VERSION, falling back to generated notes"
+            rm -f notes.md
+          fi
+
       - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: >
-          gh release create "$GITHUB_REF_NAME"
-          "DeliveryDay-$VERSION.apk" "DeliveryDay-$VERSION.apk.sha256"
-          --title "Delivery Day $VERSION"
-          --generate-notes
-          --verify-tag
+        run: |
+          NOTES=--generate-notes
+          [ -f notes.md ] && NOTES="--notes-file notes.md"
+          gh release create "$GITHUB_REF_NAME" \
+            "DeliveryDay-$VERSION.apk" "DeliveryDay-$VERSION.apk.sha256" \
+            --title "Delivery Day $VERSION" $NOTES --verify-tag

@@ -31,6 +31,8 @@
     <string name="menu_raw_hide">Masquer les données brutes</string>
     <string name="menu_logout">Se déconnecter</string>
     <string name="app_version">Version %1$s</string>
+    <string name="menu_report">Signaler un problème</string>
+    <string name="menu_about">À propos / page du projet</string>
     <string name="logout_title">Se déconnecter ?</string>
     <string name="logout_text">Le suivi s\'arrête jusqu\'à la prochaine connexion. Votre estimation de reprise et l\'historique sont conservés.</string>
     <string name="cancel">Annuler</string>

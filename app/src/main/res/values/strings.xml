@@ -32,6 +32,8 @@
     <string name="menu_raw_hide">Hide raw data</string>
     <string name="menu_logout">Sign out</string>
     <string name="app_version">Version %1$s</string>
+    <string name="menu_report">Report a problem</string>
+    <string name="menu_about">About / project page</string>
     <string name="logout_title">Sign out?</string>
     <string name="logout_text">Tracking stops until you sign in again. Your trade-in estimate and the history are kept.</string>
     <string name="cancel">Cancel</string>

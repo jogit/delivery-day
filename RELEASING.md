@@ -15,7 +15,8 @@ git push origin v0.0.2
    so it always increases);
 2. runs the tests and builds the release APK, signed with the key from the repository secrets;
 3. fails if the APK is not signed with the expected certificate (fingerprint in the workflow);
-4. publishes `DeliveryDay-X.Y.Z.apk` and its SHA-256 on the Releases page, with generated notes.
+4. publishes `DeliveryDay-X.Y.Z.apk` and its SHA-256 on the Releases page. The notes are the `## X.Y.Z`
+   section of `CHANGELOG.md` (generated notes if there is none): **add that section before tagging**.
 
 Only people with write access can push tags; workflows triggered by pull requests from forks have no
 access to the secrets.

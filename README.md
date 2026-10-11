@@ -49,6 +49,14 @@ Available in English and French (follows the phone's language).
 
 Signing in creates a separate session: it does not affect the official Tesla app.
 
+### Automatic updates (optional)
+
+The app is not on the Play Store, so nothing tells you about new versions. With
+[Obtainium](https://github.com/ImranR98/Obtainium) (a free, open-source app that installs and updates
+apps from their GitHub releases), add `https://github.com/jogit/delivery-day` as an app: it installs
+the latest APK and offers each new release as an update. Updates install over the existing app, so
+you stay signed in. The app version is shown at the bottom of the main screen.
+
 ## How it works
 
 - Checks every hour, every 15 min once delivery gets close (VIN assigned, appointment set, or

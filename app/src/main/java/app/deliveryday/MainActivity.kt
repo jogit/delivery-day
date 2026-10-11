@@ -139,6 +139,10 @@ class MainActivity : ComponentActivity() {
                     DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
                         DropdownMenuItem(text = { Text(stringResource(if (showRaw) R.string.menu_raw_hide else R.string.menu_raw_show)) },
                             onClick = { showRaw = !showRaw; menu = false })
+                        DropdownMenuItem(text = { Text(stringResource(R.string.menu_report)) },
+                            onClick = { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(ISSUES_URL))); menu = false })
+                        DropdownMenuItem(text = { Text(stringResource(R.string.menu_about)) },
+                            onClick = { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(PROJECT_URL))); menu = false })
                         DropdownMenuItem(text = { Text(stringResource(R.string.menu_logout), color = TeslaColors.Red) },
                             onClick = { confirmLogout = true; menu = false })
                     }
@@ -169,7 +173,7 @@ class MainActivity : ComponentActivity() {
                 color = TeslaColors.Muted, fontSize = 12.sp, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth(),
             )
             Text(
-                stringResource(R.string.app_version, remember { packageManager.getPackageInfo(packageName, 0).versionName ?: "" }),
+                stringResource(R.string.app_version, appVersion()),
                 color = TeslaColors.Muted, fontSize = 12.sp, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth(),
             )
             if (showRaw) Recap.details(snapshot).forEach { Text(it, style = MaterialTheme.typography.bodySmall, color = TeslaColors.Muted) }
