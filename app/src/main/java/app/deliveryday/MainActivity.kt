@@ -168,6 +168,10 @@ class MainActivity : ComponentActivity() {
                 stringResource(if (CheckWorker.intervalFor(snapshot) == 15L) R.string.auto_check_fast else R.string.auto_check_hourly),
                 color = TeslaColors.Muted, fontSize = 12.sp, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth(),
             )
+            Text(
+                stringResource(R.string.app_version, remember { packageManager.getPackageInfo(packageName, 0).versionName ?: "" }),
+                color = TeslaColors.Muted, fontSize = 12.sp, textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth(),
+            )
             if (showRaw) Recap.details(snapshot).forEach { Text(it, style = MaterialTheme.typography.bodySmall, color = TeslaColors.Muted) }
             Spacer(Modifier.height(16.dp))
         }
