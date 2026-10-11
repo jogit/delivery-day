@@ -114,7 +114,7 @@ class TeslaApi(private val store: Store, private val http: OkHttpClient = OkHttp
             if (it.code == 401 && retry) { refresh(token); return get(url, false) }
             if (it.code == 401) throw AuthExpired()
             val s = it.body.string()
-            if (!it.isSuccessful) error("HTTP ${it.code} on $url")
+            if (!it.isSuccessful) throw ApiHttpError(it.code, url)
             return JSONObject(s)
         }
     }

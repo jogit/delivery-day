@@ -59,6 +59,11 @@ class Store(private val context: Context) {
         get() = prefs.getString("lastError", null)
         set(v) = prefs.edit().putString("lastError", v).apply()
 
+    /** [ErrorKind] name of [lastError]. */
+    var lastErrorKind: String?
+        get() = prefs.getString("lastErrorKind", null)
+        set(v) = prefs.edit().putString("lastErrorKind", v).apply()
+
     /** Tesla refused the session: the user must sign in again. */
     var needsLogin: Boolean
         get() = prefs.getBoolean("needsLogin", false)

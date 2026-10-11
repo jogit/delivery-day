@@ -148,7 +148,7 @@ class MainActivity : ComponentActivity() {
                     }
                 }
             }
-            lastError?.let { Notice("⚠ " + String.format(errorFormat, it), TeslaColors.Red) }
+            lastError?.let { ErrorNotice(it, store.lastErrorKind, errorFormat) }
             store.tasksError?.let { Notice(stringResource(R.string.tasks_error, it), TeslaColors.Amber) }
 
             val orders = remember(snapshot) { Orders.parse(snapshot) }
@@ -202,6 +202,26 @@ class MainActivity : ComponentActivity() {
             text, color = color, fontSize = 13.sp,
             modifier = Modifier.fillMaxWidth().background(color.copy(alpha = 0.12f), RoundedCornerShape(12.dp)).padding(12.dp),
         )
+    }
+
+    @Composable
+    private fun ErrorNotice(error: String, kindName: String?, errorFormat: String) {
+        val kind = ErrorKind.entries.firstOrNull { it.name == kindName }
+        val detail = String.format(errorFormat, error)
+        if (kind == null) { Notice("⚠ $detail", TeslaColors.Red); return }
+        Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+            val (text, color) = when (kind) {
+                ErrorKind.NETWORK -> R.string.error_network to TeslaColors.Amber
+                ErrorKind.TESLA_DOWN -> R.string.error_tesla_down to TeslaColors.Amber
+                ErrorKind.API_CHANGED -> R.string.error_api_changed to TeslaColors.Red
+            }
+            Notice("⚠ " + stringResource(text), color)
+            Text(detail, color = TeslaColors.Muted, fontSize = 12.sp)
+            if (kind == ErrorKind.API_CHANGED) Row {
+                TextButton(onClick = { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(RELEASES_URL))) }) { Text(stringResource(R.string.error_new_version)) }
+                TextButton(onClick = { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(ISSUES_URL))) }) { Text(stringResource(R.string.menu_report)) }
+            }
+        }
     }
 
     private suspend fun checkNow() = withContext(Dispatchers.IO) { CheckWorker.checkNow(this@MainActivity) }

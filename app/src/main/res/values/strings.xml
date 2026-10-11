@@ -39,6 +39,10 @@
     <string name="cancel">Cancel</string>
     <string name="ok">OK</string>
     <string name="error_prefix">Error: %1$s</string>
+    <string name="error_network">No connection to Tesla. The app will retry automatically.</string>
+    <string name="error_tesla_down">Tesla\'s servers are not responding right now. The app will retry automatically.</string>
+    <string name="error_api_changed">The app can\'t read your order: Tesla may have changed its interface. Check for a new version, and if there is none, please report it.</string>
+    <string name="error_new_version">New version</string>
     <string name="tasks_error">⚠ Tesla no longer provides the delivery details and tasks (%1$s). Showing the last known information.</string>
     <string name="no_orders">No order found yet.</string>
     <string name="auto_check_hourly">Checked automatically every hour · pull down to refresh.</string>

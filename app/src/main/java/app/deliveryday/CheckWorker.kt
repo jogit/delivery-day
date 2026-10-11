@@ -82,6 +82,7 @@ class CheckWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(ctx,
                 Result.failure()
             } catch (e: Exception) {
                 store.lastError = e.message ?: e.javaClass.simpleName
+                store.lastErrorKind = ErrorKind.of(e).name
                 Result.retry()
             }
         }

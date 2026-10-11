@@ -5,6 +5,7 @@ The section of the tagged version is used as the release notes (see `RELEASING.m
 ## 0.0.5
 
 - The app version is shown on the main screen and on the sign-in screen.
+- Clearer errors: "no connection" and "Tesla's servers are not responding" are shown as temporary (the app retries by itself); when Tesla refuses the request or the answer is unreadable, the app says Tesla may have changed its interface and links to the new version and to the bug report.
 - New menu entries: **Report a problem** (opens the issue form) and **About / project page**.
 
 ## 0.0.4

@@ -38,6 +38,10 @@
     <string name="cancel">Annuler</string>
     <string name="ok">OK</string>
     <string name="error_prefix">Erreur : %1$s</string>
+    <string name="error_network">Pas de connexion à Tesla. L\'app réessaie automatiquement.</string>
+    <string name="error_tesla_down">Les serveurs de Tesla ne répondent pas pour le moment. L\'app réessaie automatiquement.</string>
+    <string name="error_api_changed">L\'app ne peut plus lire votre commande : Tesla a peut-être modifié son interface. Cherchez une nouvelle version et, s\'il n\'y en a pas, signalez-le.</string>
+    <string name="error_new_version">Nouvelle version</string>
     <string name="tasks_error">⚠ Tesla ne fournit plus les infos de livraison et les démarches (%1$s). Affichage des dernières infos connues.</string>
     <string name="no_orders">Aucune commande trouvée pour l\'instant.</string>
     <string name="auto_check_hourly">Vérification automatique toutes les heures · tirez vers le bas pour actualiser.</string>
