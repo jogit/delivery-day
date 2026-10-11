@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Delivery Day – Track your Tesla order and delivery date on Android</title>
+<meta name="description" content="Free open-source Android app to follow your Tesla order: delivery window countdown, VIN assigned, appointment, payment, trade-in, notifications and widget. Unofficial.">
+<link rel="canonical" href="https://jogit.github.io/delivery-day/">
+<link rel="alternate" hreflang="en" href="https://jogit.github.io/delivery-day/">
+<link rel="alternate" hreflang="fr" href="https://jogit.github.io/delivery-day/fr/">
+<link rel="alternate" hreflang="x-default" href="https://jogit.github.io/delivery-day/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Delivery Day – Track your Tesla order and delivery date on Android">
+<meta property="og:description" content="Free open-source Android app to follow your Tesla order: delivery window countdown, VIN assigned, appointment, payment, trade-in, notifications and widget. Unofficial.">
+<meta property="og:url" content="https://jogit.github.io/delivery-day/">
+<meta property="og:image" content="https://jogit.github.io/delivery-day/screenshots/app-en-light-1.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Delivery Day","operatingSystem":"Android 8+","applicationCategory":"UtilitiesApplication","description":"Free open-source Android app to follow your Tesla order: delivery window countdown, VIN assigned, appointment, payment, trade-in, notifications and widget. Unofficial.","url":"https://jogit.github.io/delivery-day/","downloadUrl":"https://github.com/jogit/delivery-day/releases/latest","license":"https://opensource.org/licenses/MIT","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"}}</script>
+<style>
+:root{--bg:#fff;--fg:#171a20;--muted:#5c5e62;--card:#f4f4f4;--accent:#3e6ae1;--on:#fff}
+@media (prefers-color-scheme:dark){:root{--bg:#121316;--fg:#f4f4f4;--muted:#a2a3a5;--card:#1d1f23;--accent:#6b8cf0;--on:#10131a}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:960px;margin:0 auto;padding:0 16px 64px}
+nav{display:flex;justify-content:space-between;padding:20px 0;font-weight:600}
+a{color:var(--accent)}
+h1{font-size:clamp(2rem,6vw,3.2rem);line-height:1.1;margin:24px 0 16px}
+.lead{font-size:1.15rem;color:var(--muted);max-width:640px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin:28px 0}
+.btn{display:inline-block;padding:12px 22px;border-radius:8px;background:var(--accent);color:var(--on);text-decoration:none;font-weight:600}
+.btn.alt{background:var(--card);color:var(--fg)}
+.shots{display:flex;gap:16px;overflow-x:auto;padding:8px 0 24px}
+.shots img{height:520px;width:auto;border-radius:16px;flex:none}
+h2{margin:48px 0 16px}
+.feats{list-style:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.feats li{background:var(--card);border-radius:12px;padding:16px}
+.feats strong,.feats span{display:block}
+.feats span{color:var(--muted)}
+.row{display:flex;flex-wrap:wrap;gap:16px;align-items:center;margin-top:32px}
+.row img{max-width:100%;border-radius:12px;flex:1 1 320px;min-width:0}
+.warn{background:var(--card);border-left:4px solid var(--accent);padding:12px 16px;border-radius:8px;color:var(--muted)}
+footer{margin-top:48px;color:var(--muted);font-size:.9rem}
+</style>
+</head>
+<body>
+<main>
+<nav><span>Delivery Day</span><a href="https://jogit.github.io/delivery-day/fr/" hreflang="fr">Français</a></nav>
+<h1>Stop refreshing the Tesla app.</h1>
+<p class="lead">Delivery Day watches your Tesla order and notifies you only when something matters: VIN assigned, delivery window changed, appointment, amount due, trade-in offer.</p>
+<div class="cta"><a class="btn" href="https://github.com/jogit/delivery-day/releases/latest">Download the APK</a><a class="btn alt" href="https://github.com/jogit/delivery-day">View on GitHub</a></div>
+<div class="shots">
+<img src="screenshots/app-en-light-1.png" alt="Delivery Day: order, delivery window and timeline" loading="lazy">
+<img src="screenshots/app-en-dark-2.png" alt="Delivery Day: progress and payment, dark theme" loading="lazy">
+<img src="screenshots/app-en-light-3.png" alt="Delivery Day: history and Tesla tasks" loading="lazy">
+</div>
+<ul class="feats"><li><strong>Delivery window</strong><span>Countdown and timeline up to delivery day.</span></li><li><strong>Smart notifications</strong><span>Readable, only for real changes. Hidden on the lock screen.</span></li><li><strong>Change history</strong><span>See exactly what changed and when.</span></li><li><strong>Payment & trade-in</strong><span>Amount due and trade-in offer at a glance.</span></li><li><strong>Tesla tasks</strong><span>Know when Tesla asks you to do something.</span></li><li><strong>Home screen widget</strong><span>Your delivery date without opening the app.</span></li></ul>
+<div class="row"><img src="screenshots/widget-en-2rows.png" alt="Home screen widget" loading="lazy"><img src="screenshots/notification-en.png" alt="Notification" loading="lazy"></div>
+<h2>Install</h2>
+<ol><li>Download the latest APK from GitHub Releases and open it on your phone.</li><li>Tap “Sign in with your Tesla account” and sign in on tesla.com.</li><li>Allow notifications and set battery usage to Unrestricted (Samsung/Xiaomi).</li><li>Optional: add the widget.</li></ol>
+<h2>Private by design</h2>
+<p>No server, no ads, no analytics. You sign in on tesla.com (OAuth + PKCE): your password never reaches the app. Tokens are encrypted with the Android Keystore and order data stays on your phone.</p>
+<p class="warn">Unofficial. Not affiliated with Tesla. It uses the private API of the Tesla mobile app, which Tesla may change or block at any time.</p>
+<footer>MIT · <a href="https://github.com/jogit/delivery-day">GitHub</a> · Tesla® is a trademark of Tesla, Inc.</footer>
+</main>
+</body>
+</html>

@@ -1,6 +1,14 @@
 # Delivery Day
 
-*[English version](README.md)*
+*[English version](README.md)* · [Site web](https://jogit.github.io/delivery-day/)
+
+[![CI](https://github.com/jogit/delivery-day/actions/workflows/ci.yml/badge.svg)](https://github.com/jogit/delivery-day/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/jogit/delivery-day)](https://github.com/jogit/delivery-day/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/jogit/delivery-day/total)](https://github.com/jogit/delivery-day/releases)
+[![License: MIT](https://img.shields.io/github/license/jogit/delivery-day)](LICENSE)
+![Android 8+](https://img.shields.io/badge/Android-8%2B-3DDC84)
+
+**Arrêtez de rafraîchir l'app Tesla : soyez prévenu quand la date de livraison, le VIN ou le paiement change.**
 
 Application Android pour suivre une commande Tesla jusqu'à la livraison : fenêtre de livraison
 avec compte à rebours et frise, bandeau « du nouveau ? », historique des changements, paiement

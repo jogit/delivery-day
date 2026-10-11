@@ -1,0 +1,27 @@
+name: Bug report / Signaler un bug
+description: Something does not work as expected / Quelque chose ne fonctionne pas
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened? / Que s'est-il passé ?
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: App version / Version de l'app
+      placeholder: 0.0.4
+    validations:
+      required: true
+  - type: input
+    id: phone
+    attributes:
+      label: Phone and Android version / Téléphone et version d'Android
+      placeholder: Samsung S24, Android 16
+  - type: textarea
+    id: extra
+    attributes:
+      label: Screenshots or details / Captures ou détails
+      description: Do not paste tokens, VIN or reservation number. / Ne collez ni jeton, ni VIN, ni numéro de réservation.
