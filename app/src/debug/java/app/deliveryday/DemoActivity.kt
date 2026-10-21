@@ -59,6 +59,8 @@ class DemoActivity : Activity() {
         if (state == "appointment" || state == "delivered")
             tasks.getJSONObject("scheduling").put("isValidAppointment", true)
         if (state == "delivered") order.put("orderStatus", "DELIVERED")
+        val news = intent.getStringExtra("news")
+        if (news == "status") order.put("orderStatus", "IN_TRANSIT")
         val snapshot = JSONObject().put("RN-DEMO-0001",JSONObject().put("order", order)
             .put("tasks", JSONObject().put("tasks", tasks)).put("lang", Locale.getDefault().language))
 
@@ -70,15 +72,23 @@ class DemoActivity : Activity() {
             lastCheck = now - 12 * 60_000
             tradeInEstimate = 8500.0
             tradeInBaseline = 41990.0
-            // Banner computed like a real check would; "news=window" for a delivery window change.
-            val earlier = JSONObject(snapshot.toString())
-            val earlierOrder = earlier.getJSONObject("RN-DEMO-0001")
-            if (intent.getStringExtra("news") == "window")
-                earlierOrder.getJSONObject("tasks").getJSONObject("tasks").getJSONObject("scheduling")
+            // Banner computed like a real check would, from an earlier state differing by what "news" says:
+            // window, status, place, tradein, task (default: VIN not assigned yet).
+            val earlier = JSONObject(snapshot.toString()).getJSONObject("RN-DEMO-0001")
+            val earlierTasks = earlier.getJSONObject("tasks").getJSONObject("tasks")
+            when (news) {
+                "window" -> earlierTasks.getJSONObject("scheduling")
                     .put("deliveryWindowDisplay", "${today.plusDays(28).format(windowFormat)} - ${today.plusDays(55).format(windowFormat)}"
                         .replaceFirstChar(Char::titlecase))
-            else earlierOrder.getJSONObject("order").remove("vin")
-            lastNews = Changes.summarize(earlier.toString(), snapshot.toString())
+                "status" -> earlier.getJSONObject("order").put("orderStatus", "BOOKED")
+                "place" -> earlierTasks.getJSONObject("scheduling")
+                    .put("deliveryAddressTitle", if (fr) "Centre de Livraison Tesla Paris" else "Tesla Delivery Center Paris")
+                "tradein" -> earlierTasks.getJSONObject("tradeIn").put("status", "FINAL_OFFER_PENDING")
+                "task" -> earlierTasks.getJSONObject("financing").put("complete", false)
+                else -> earlier.getJSONObject("order").remove("vin")
+            }
+            val earlierSnapshot = JSONObject().put("RN-DEMO-0001", earlier)
+            lastNews = Changes.summarize(earlierSnapshot.toString(), snapshot.toString())
                 .takeIf { it.changes.isNotEmpty() }?.let { ChangeText.headline(this@DemoActivity, it) }
             lastNewsAt = now - 2 * day
             addHistory(listOf(getString(R.string.task_financing) to getString(R.string.ch_task_done)), now - 20 * day)

@@ -25,6 +25,7 @@ Available in English and French (follows the phone's language).
 <p>
   <img src="docs/screenshots/widget-en-2rows.png" width="390" alt="Home screen widget, two rows">
   <img src="docs/screenshots/widget-en-1row.png" width="390" alt="Home screen widget, one row">
+  <img src="docs/screenshots/widget-en-2rows-light.png" width="390" alt="Home screen widget, light theme">
 </p>
 <p>
   <img src="docs/screenshots/notification-en.png" width="390" alt="Notification: VIN assigned and delivery window changed">

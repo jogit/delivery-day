@@ -147,6 +147,9 @@ object Orders {
             .mapNotNull { k -> sched.optString(k).takeIf { it.isNotBlank() && it != "null" } }
             .toList()
         if (fields.isNotEmpty()) return fields.joinToString(" · ")
+        // Other order trackers read the appointment from here too: date and time on the first line, then the address.
+        sched.optString("apptDateTimeAddressStr").lineSequence().firstOrNull { it.isNotBlank() && it != "null" }
+            ?.let { return it.trim() }
         val card = sched.optJSONObject("card") ?: return null
         return card.optString("messageBody").takeIf { it.isNotBlank() && it != "null" && it != sched.optString("deliveryWindowDisplay") }
             ?: card.optString("subtitle").takeIf { it.isNotBlank() && it != "null" }

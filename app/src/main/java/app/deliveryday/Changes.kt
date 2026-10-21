@@ -128,8 +128,8 @@ object ChangeText {
 
     /**
      * Plain-words title for the widget banner: no "VIN" jargon, and the new value when the title
-     * alone says too little ("Delivery window: Nov 5 – Dec 2"). The detail is only worth the room
-     * when the change is alone.
+     * alone says too little ("Status: In transit"). The detail is only worth the room when the change
+     * is alone, and only when it is short: the banner has two lines and ends with "· 2 days ago".
      */
     private fun headlineTitle(ctx: Context, c: Changes.Change, withDetail: Boolean): String {
         val n = c.after
@@ -139,9 +139,10 @@ object ChangeText {
             else -> if (!withDetail) title(ctx, c) else when (c.kind) {
                 Changes.Kind.STATUS -> ctx.getString(R.string.wh_status, Labels.status(ctx, n.statusCode))
                 Changes.Kind.WINDOW -> ctx.getString(R.string.wh_window)
-                Changes.Kind.PLACE -> ctx.getString(R.string.wh_place, n.deliveryPlace ?: "—")
-                Changes.Kind.TRADE_IN_STATUS -> ctx.getString(R.string.wh_trade_in, Labels.tradeInStatus(ctx, n.tradeInStatusCode))
-                Changes.Kind.TASK_DONE, Changes.Kind.TASK_TODO -> ctx.getString(R.string.ch_line, title(ctx, c), detail(ctx, c))
+                Changes.Kind.PLACE -> ctx.getString(R.string.wh_place)
+                Changes.Kind.TRADE_IN_STATUS -> ctx.getString(R.string.wh_trade_in)
+                Changes.Kind.TASK_DONE -> ctx.getString(R.string.ch_line, title(ctx, c), detail(ctx, c))
+                Changes.Kind.TASK_TODO -> ctx.getString(R.string.ch_task_todo, title(ctx, c))
                 else -> title(ctx, c)
             }
         }

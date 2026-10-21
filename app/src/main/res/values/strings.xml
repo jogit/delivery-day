@@ -230,12 +230,13 @@
     <string name="w_open_app">Open the app to sign in</string>
     <string name="w_nothing_since">Nothing new since %1$s</string>
     <string name="w_step">Step %1$d/%2$d · %3$s</string>
+    <string name="w_delivered">Delivered!</string>
     <string name="wh_car_assigned">Car assigned (VIN)</string>
     <string name="wh_car_changed">Car changed (VIN)</string>
     <string name="wh_status">Status: %1$s</string>
     <string name="wh_window">Dates changed</string>
-    <string name="wh_place">Delivery place: %1$s</string>
-    <string name="wh_trade_in">Trade-in: %1$s</string>
+    <string name="wh_place">Delivery place changed</string>
+    <string name="wh_trade_in">Trade-in updated</string>
     <string name="w_wait_assigned">Waiting for your car (VIN)</string>
     <string name="w_wait_appointment">Waiting for the appointment</string>
     <string name="w_wait_delivery">Waiting for delivery</string>

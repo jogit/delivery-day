@@ -35,6 +35,13 @@
         android:paddingTop="5dp" android:paddingBottom="5dp"
         android:background="@drawable/widget_news_quiet"
         android:textColor="@color/muted" android:textSize="15sp" android:maxLines="2" android:ellipsize="end" />
+    <!-- Colors come from the layout, not from code, so the launcher themes them (light/dark) on every Android version:
+         one view per look, the code shows one and hides the other. -->
+    <TextView android:id="@+id/w_news_fresh" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" android:paddingStart="12dp" android:paddingEnd="12dp"
+        android:paddingTop="5dp" android:paddingBottom="5dp" android:visibility="gone"
+        android:background="@drawable/widget_news_fresh"
+        android:textColor="@color/text" android:textSize="15sp" android:maxLines="2" android:ellipsize="end" />
 
     <!-- Where are we? Four segments (done / current / to come) and the current step in words. -->
     <LinearLayout android:layout_width="match_parent" android:layout_height="6dp"
@@ -51,4 +58,7 @@
     <TextView android:id="@+id/w_steps" android:layout_width="match_parent" android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:textColor="@color/text" android:textStyle="bold" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
+    <TextView android:id="@+id/w_steps_done" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_marginTop="4dp" android:visibility="gone"
+        android:textColor="@color/green" android:textStyle="bold" android:textSize="14sp" android:maxLines="1" android:ellipsize="end" />
 </LinearLayout>

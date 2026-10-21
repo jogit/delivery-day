@@ -6,12 +6,11 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.util.SizeF
+import android.view.View
 import android.widget.RemoteViews
-import androidx.annotation.ColorRes
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.OutOfQuotaPolicy
@@ -96,29 +95,17 @@ class OrderWidget : AppWidgetProvider() {
                 })
             }
             if (current < 0) {
-                v.setTextViewText(R.id.w_steps, "✓ ${ctx.getString(R.string.step_delivered)}")
-                setTextColor(ctx, v, R.id.w_steps, R.color.green)
+                v.setTextViewText(R.id.w_steps_done, "✓ ${ctx.getString(R.string.step_delivered)}")
+                show(v, R.id.w_steps_done, R.id.w_steps)
             } else {
                 v.setTextViewText(R.id.w_steps, ctx.getString(R.string.w_step, current + 1, labels.size, ctx.getString(labels[current])))
-                setTextColor(ctx, v, R.id.w_steps, R.color.text)
+                show(v, R.id.w_steps, R.id.w_steps_done)
             }
         }
 
-        /**
-         * Text color that follows the phone's light/dark theme. Layouts and drawables do it by
-         * themselves; a color set from here would stay as is when the theme changes (Android 12+
-         * takes both and the launcher picks).
-         */
-        private fun setTextColor(ctx: Context, v: RemoteViews, id: Int, @ColorRes res: Int) {
-            if (Build.VERSION.SDK_INT >= 31) v.setColorInt(id, "setTextColor", color(ctx, res, night = false), color(ctx, res, night = true))
-            else v.setTextColor(id, ctx.getColor(res))
-        }
-
-        private fun color(ctx: Context, @ColorRes res: Int, night: Boolean): Int {
-            val config = Configuration(ctx.resources.configuration)
-            config.uiMode = (config.uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()) or
-                if (night) Configuration.UI_MODE_NIGHT_YES else Configuration.UI_MODE_NIGHT_NO
-            return ctx.createConfigurationContext(config).getColor(res)
+        private fun show(v: RemoteViews, shown: Int, hidden: Int) {
+            v.setViewVisibility(shown, View.VISIBLE)
+            v.setViewVisibility(hidden, View.GONE)
         }
 
         private fun build(ctx: Context, refreshing: Boolean, small: Boolean): RemoteViews {
@@ -143,36 +130,44 @@ class OrderWidget : AppWidgetProvider() {
                 v.setTextViewText(R.id.w_countdown, ctx.getString(R.string.w_open_app))
                 if (!small) {
                     v.setTextViewText(R.id.w_model, ctx.getString(R.string.app_name))
-                    v.setTextViewText(R.id.w_news, "")
-                    v.setTextViewText(R.id.w_steps, "")
+                    listOf(R.id.w_news, R.id.w_news_fresh, R.id.w_steps, R.id.w_steps_done).forEach { v.setViewVisibility(it, View.GONE) }
                     SEGMENTS.forEach { v.setInt(it, "setBackgroundResource", R.drawable.widget_seg_todo) }
                 }
             } else if (small) {
-                v.setTextViewText(R.id.w_window,
-                    if (o.windowStart != null && o.windowEnd != null) "${Fmt.dayMonth(o.windowStart)} → ${Fmt.dayMonth(o.windowEnd)}"
-                    else o.window ?: ctx.getString(R.string.w_no_window))
-                v.setTextViewText(R.id.w_countdown, freshNews ?: countdown(ctx, o, today))
+                v.setTextViewText(R.id.w_window, when {
+                    o.delivered -> ctx.getString(R.string.w_delivered)
+                    o.windowStart != null && o.windowEnd != null -> "${Fmt.dayMonth(o.windowStart)} → ${Fmt.dayMonth(o.windowEnd)}"
+                    else -> o.window ?: ctx.getString(R.string.w_no_window)
+                })
+                // Delivered: the window and the countdown ("Appointment set!") are over.
+                v.setTextViewText(R.id.w_countdown, freshNews ?: if (o.delivered) "" else countdown(ctx, o, today))
             } else {
                 v.setTextViewText(R.id.w_model, ctx.getString(R.string.w_title, o.model) +
                     if (orders.size > 1) " (+${orders.size - 1})" else "")
                 // When?
-                if (o.windowStart != null && o.windowEnd != null) {
+                // An empty countdown line would leave a gap.
+                fun countdownText(text: String) {
+                    v.setTextViewText(R.id.w_countdown, text)
+                    v.setViewVisibility(R.id.w_countdown, if (text.isEmpty()) View.GONE else View.VISIBLE)
+                }
+                if (o.delivered) {
+                    v.setTextViewText(R.id.w_window, ctx.getString(R.string.w_delivered))
+                    countdownText("")
+                } else if (o.windowStart != null && o.windowEnd != null) {
                     v.setTextViewText(R.id.w_window, ctx.getString(R.string.w_between, Fmt.dayMonth(o.windowStart), Fmt.dayMonth(o.windowEnd)))
-                    v.setTextViewText(R.id.w_countdown, countdown(ctx, o, today))
+                    countdownText(countdown(ctx, o, today))
                 } else {
                     v.setTextViewText(R.id.w_window, o.window ?: ctx.getString(R.string.w_no_window))
-                    v.setTextViewText(R.id.w_countdown, "")
+                    countdownText("")
                 }
                 // Anything new?
                 if (freshNews != null) {
-                    v.setTextViewText(R.id.w_news, freshNews)
-                    v.setInt(R.id.w_news, "setBackgroundResource", R.drawable.widget_news_fresh)
-                    setTextColor(ctx, v, R.id.w_news, R.color.text)
+                    v.setTextViewText(R.id.w_news_fresh, freshNews)
+                    show(v, R.id.w_news_fresh, R.id.w_news)
                 } else {
                     val since = newsDay ?: o.orderedOn
                     v.setTextViewText(R.id.w_news, since?.let { ctx.getString(R.string.w_nothing_since, Fmt.dayMonth(it)) } ?: ctx.getString(R.string.news_none))
-                    v.setInt(R.id.w_news, "setBackgroundResource", R.drawable.widget_news_quiet)
-                    setTextColor(ctx, v, R.id.w_news, R.color.muted)
+                    show(v, R.id.w_news, R.id.w_news_fresh)
                 }
                 // Where are we?
                 steps(ctx, v, o)
