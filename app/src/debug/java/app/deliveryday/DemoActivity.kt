@@ -53,7 +53,13 @@ class DemoActivity : Activity() {
         val order = JSONObject().put("referenceNumber", "RN-DEMO-0001").put("orderStatus", "BOOKED")
             .put("modelCode", "my").put("countryCode", "FR").put("vin", "DEMO-VIN-12345678")
             .put("mktOptions", "APBS,IBB6,PPSB,SC04,MDLY,WY19P,MTY85,STY5B,CPF0,TW01")
-        val snapshot = JSONObject().put("RN-DEMO-0001", JSONObject().put("order", order)
+        // "state=assigned|appointment|delivered" picks the step reached (default: car assigned, no appointment yet).
+        val state = intent.getStringExtra("state")
+        if (state == "assigned") order.remove("vin")
+        if (state == "appointment" || state == "delivered")
+            tasks.getJSONObject("scheduling").put("isValidAppointment", true)
+        if (state == "delivered") order.put("orderStatus", "DELIVERED")
+        val snapshot = JSONObject().put("RN-DEMO-0001",JSONObject().put("order", order)
             .put("tasks", JSONObject().put("tasks", tasks)).put("lang", Locale.getDefault().language))
 
         Store(this).apply {
@@ -64,7 +70,16 @@ class DemoActivity : Activity() {
             lastCheck = now - 12 * 60_000
             tradeInEstimate = 8500.0
             tradeInBaseline = 41990.0
-            lastNews = getString(R.string.ch_vin_assigned)
+            // Banner computed like a real check would; "news=window" for a delivery window change.
+            val earlier = JSONObject(snapshot.toString())
+            val earlierOrder = earlier.getJSONObject("RN-DEMO-0001")
+            if (intent.getStringExtra("news") == "window")
+                earlierOrder.getJSONObject("tasks").getJSONObject("tasks").getJSONObject("scheduling")
+                    .put("deliveryWindowDisplay", "${today.plusDays(28).format(windowFormat)} - ${today.plusDays(55).format(windowFormat)}"
+                        .replaceFirstChar(Char::titlecase))
+            else earlierOrder.getJSONObject("order").remove("vin")
+            lastNews = Changes.summarize(earlier.toString(), snapshot.toString())
+                .takeIf { it.changes.isNotEmpty() }?.let { ChangeText.headline(this@DemoActivity, it) }
             lastNewsAt = now - 2 * day
             addHistory(listOf(getString(R.string.task_financing) to getString(R.string.ch_task_done)), now - 20 * day)
             addHistory(listOf(getString(R.string.ch_window) to (if (fr) "5 nov. – 2 déc. → " else "Nov 5 – Dec 2 → ") +

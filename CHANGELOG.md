@@ -2,6 +2,12 @@
 
 The section of the tagged version is used as the release notes (see `RELEASING.md`).
 
+## 0.0.6
+
+- Widget: the progress line is now four segments (done, current, to come) with the current step in plain words ("Step 3/4 · Waiting for the appointment"), instead of a single line of text that could be cut off.
+- Widget: follows the phone's light/dark theme (light background in light mode), with the same colors as the app.
+- Widget: the "what's new" banner no longer uses jargon ("Car assigned (VIN)" instead of "VIN assigned") and shows the new value when the title alone says too little (status, delivery place, trade-in, completed task).
+
 ## 0.0.5
 
 - The app version is shown on the main screen and on the sign-in screen.

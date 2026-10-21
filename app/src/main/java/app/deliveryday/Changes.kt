@@ -126,9 +126,30 @@ object ChangeText {
         if (s.important == 1) listOf(detail(ctx, s.changes[0]))
         else s.changes.map { ctx.getString(R.string.ch_line, titleWithEmoji(ctx, it), detail(ctx, it)) }
 
-    /** Short version for the widget banner: "VIN assigned", "VIN assigned + 2 more". */
+    /**
+     * Plain-words title for the widget banner: no "VIN" jargon, and the new value when the title
+     * alone says too little ("Delivery window: Nov 5 – Dec 2"). The detail is only worth the room
+     * when the change is alone.
+     */
+    private fun headlineTitle(ctx: Context, c: Changes.Change, withDetail: Boolean): String {
+        val n = c.after
+        return when (c.kind) {
+            Changes.Kind.VIN_ASSIGNED -> ctx.getString(R.string.wh_car_assigned)
+            Changes.Kind.VIN_CHANGED -> ctx.getString(R.string.wh_car_changed)
+            else -> if (!withDetail) title(ctx, c) else when (c.kind) {
+                Changes.Kind.STATUS -> ctx.getString(R.string.wh_status, Labels.status(ctx, n.statusCode))
+                Changes.Kind.WINDOW -> ctx.getString(R.string.wh_window)
+                Changes.Kind.PLACE -> ctx.getString(R.string.wh_place, n.deliveryPlace ?: "—")
+                Changes.Kind.TRADE_IN_STATUS -> ctx.getString(R.string.wh_trade_in, Labels.tradeInStatus(ctx, n.tradeInStatusCode))
+                Changes.Kind.TASK_DONE, Changes.Kind.TASK_TODO -> ctx.getString(R.string.ch_line, title(ctx, c), detail(ctx, c))
+                else -> title(ctx, c)
+            }
+        }
+    }
+
+    /** Short version for the widget banner: "Car assigned", "Car assigned + 2 more". */
     fun headline(ctx: Context, s: Changes.Summary): String {
-        val first = title(ctx, s.changes[0])
+        val first = headlineTitle(ctx, s.changes[0], withDetail = s.important == 1)
         return if (s.important == 1) first
         else ctx.resources.getQuantityString(R.plurals.headline_more, s.important - 1, first, s.important - 1)
     }

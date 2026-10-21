@@ -92,7 +92,6 @@
     <string name="step_ordered">Commandée</string>
     <string name="step_assigned">Voiture attribuée</string>
     <string name="step_appointment">Rendez-vous</string>
-    <string name="step_appointment_short">RDV</string>
     <string name="step_delivered">Livrée</string>
 
     <!-- Paiement -->
@@ -238,4 +237,14 @@
     <string name="w_not_connected">Pas encore connecté</string>
     <string name="w_open_app">Ouvrez l\'app pour vous connecter</string>
     <string name="w_nothing_since">Rien de nouveau depuis le %1$s</string>
+    <string name="w_step">Étape %1$d/%2$d · %3$s</string>
+    <string name="wh_car_assigned">Voiture attribuée (VIN)</string>
+    <string name="wh_car_changed">Voiture modifiée (VIN)</string>
+    <string name="wh_status">Statut : %1$s</string>
+    <string name="wh_window">Dates modifiées</string>
+    <string name="wh_place">Lieu de livraison : %1$s</string>
+    <string name="wh_trade_in">Reprise : %1$s</string>
+    <string name="w_wait_assigned">En attente de votre voiture (VIN)</string>
+    <string name="w_wait_appointment">En attente du rendez-vous</string>
+    <string name="w_wait_delivery">En attente de la livraison</string>
 </resources>
