@@ -2,6 +2,12 @@
 
 The section of the tagged version is used as the release notes (see `RELEASING.md`).
 
+## 0.0.7
+
+- Translate the trade-in offer pending and third-party inspection statuses in French and English.
+- Show the trade-in inspection status separately from the offer status, including completed inspections.
+- Record inspection progress in history and notifications even when the offer status does not change.
+
 ## 0.0.6
 
 - Widget: the progress line is now four segments (done, current, to come) with the current step in plain words ("Step 3/4 · Waiting for the appointment"), instead of a single line of text that could be cut off.

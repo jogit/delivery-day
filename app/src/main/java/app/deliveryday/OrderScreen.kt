@@ -299,6 +299,9 @@ private fun PaymentCard(o: OrderInfo, estimate: Double?, baseline: Double?, onEs
             Labels.tradeInStatus(ctx, o.tradeInStatusCode)?.let {
                 Text(stringResource(R.string.trade_in_status, it), color = TeslaColors.Muted, fontSize = 12.sp)
             }
+            Labels.tradeInInspection(ctx, o.tradeInInspectionCode)?.let {
+                Text(stringResource(R.string.trade_in_inspection, it), color = TeslaColors.Muted, fontSize = 12.sp)
+            }
         }
     }
 }

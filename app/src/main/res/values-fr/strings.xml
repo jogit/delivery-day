@@ -158,6 +158,10 @@
     <string name="tradein_offer_accepted">Offre de reprise acceptée</string>
     <string name="tradein_offer_expired">Offre de reprise expirée</string>
     <string name="tradein_offer_pending">Offre de reprise en attente</string>
+    <string name="tradein_inspection_third_party">Inspection du véhicule : poursuite avec un partenaire</string>
+    <string name="tradein_inspection_completed">Inspection terminée</string>
+    <string name="trade_in_inspection">Inspection de reprise : %1$s</string>
+    <string name="ch_trade_in_inspection">Inspection de reprise</string>
     <string name="trim_mty85">Propulsion · Standard</string>
     <string name="paint_ppsw">Blanc Nacré Multicouches</string>
     <string name="paint_pbsb">Noir Uni</string>

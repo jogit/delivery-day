@@ -42,6 +42,8 @@ data class OrderInfo(
     val currency: String,
     val tradeIn: Boolean,
     val tradeInStatusCode: String?,
+    /** Inspection progresses independently of the trade-in offer. */
+    val tradeInInspectionCode: String?,
     /** Amount of Tesla's official trade-in offer, once there is one. */
     val tradeInOffer: Double?,
     val paymentMethod: String?,
@@ -123,6 +125,11 @@ object Orders {
                 tradeIn = task("tradeIn").optString("tradeInIntent") == "Yes",
                 tradeInOffer = TradeIn.officialOffer(task("tradeIn")),
                 tradeInStatusCode = s(task("tradeIn"), "status"),
+                tradeInInspectionCode = task("tradeIn").optJSONObject("tradeInVehicle")?.let { vehicle ->
+                    s(vehicle, "AMPStatus") ?: s(vehicle, "InspectionStatus")?.let {
+                        if (it == "COMPLETED") "INSPECTION_COMPLETED" else it
+                    }
+                },
                 paymentMethod = s(task("financing").optJSONObject("card") ?: JSONObject(), "messageBody"),
                 owners = listOfNotNull(reg?.optJSONObject("owner"), reg?.optJSONObject("coOwner"))
                     .mapNotNull { it.optJSONObject("user") }

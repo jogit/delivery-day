@@ -6,7 +6,7 @@ import android.content.Context
 object Changes {
     enum class Kind {
         NEW_ORDER, VIN_ASSIGNED, VIN_CHANGED, STATUS, WINDOW, APPOINTMENT_SET, APPOINTMENT_CHANGED,
-        PLACE, AMOUNT, TRADE_IN_STATUS, TRADE_IN_OFFER, TASK_DONE, TASK_TODO, TASK_INFO,
+        PLACE, AMOUNT, TRADE_IN_STATUS, TRADE_IN_INSPECTION, TRADE_IN_OFFER, TASK_DONE, TASK_TODO, TASK_INFO,
     }
 
     /** One change; [before]/[after] are the old and new orders (only [after] for a new order). */
@@ -35,6 +35,7 @@ object Changes {
             add(Kind.PLACE, sameLang && o.deliveryPlace != n.deliveryPlace)
             add(Kind.AMOUNT, o.amountDue != n.amountDue)
             add(Kind.TRADE_IN_STATUS, o.tradeInStatusCode != n.tradeInStatusCode)
+            add(Kind.TRADE_IN_INSPECTION, n.tradeInInspectionCode != null && o.tradeInInspectionCode != n.tradeInInspectionCode)
             add(Kind.TRADE_IN_OFFER, n.tradeInOffer != null && o.tradeInOffer != n.tradeInOffer)
 
             val oldTasks = o.tasks.associateBy { it.id }
@@ -64,6 +65,7 @@ object ChangeText {
         Changes.Kind.STATUS to "📦", Changes.Kind.WINDOW to "🚗", Changes.Kind.APPOINTMENT_SET to "📅",
         Changes.Kind.APPOINTMENT_CHANGED to "📅", Changes.Kind.PLACE to "📍", Changes.Kind.AMOUNT to "💶",
         Changes.Kind.TRADE_IN_STATUS to "🔁", Changes.Kind.TRADE_IN_OFFER to "💶", Changes.Kind.TASK_DONE to "✅",
+        Changes.Kind.TRADE_IN_INSPECTION to "🔎",
         Changes.Kind.TASK_TODO to "👉", Changes.Kind.TASK_INFO to "ℹ️",
     )
 
@@ -79,6 +81,7 @@ object ChangeText {
         Changes.Kind.PLACE -> ctx.getString(R.string.ch_place)
         Changes.Kind.AMOUNT -> ctx.getString(R.string.ch_amount)
         Changes.Kind.TRADE_IN_STATUS -> ctx.getString(R.string.ch_trade_in)
+        Changes.Kind.TRADE_IN_INSPECTION -> ctx.getString(R.string.ch_trade_in_inspection)
         Changes.Kind.TRADE_IN_OFFER -> ctx.getString(R.string.ch_trade_in_offer)
         Changes.Kind.TASK_DONE, Changes.Kind.TASK_TODO, Changes.Kind.TASK_INFO -> Labels.task(ctx, c.task!!.id)
     }
@@ -110,6 +113,7 @@ object ChangeText {
             Changes.Kind.PLACE -> arrow(o?.deliveryPlace, n.deliveryPlace)
             Changes.Kind.AMOUNT -> arrow(money(o?.amountDue, n.currency), money(n.amountDue, n.currency))
             Changes.Kind.TRADE_IN_STATUS -> arrow(Labels.tradeInStatus(ctx, o?.tradeInStatusCode), Labels.tradeInStatus(ctx, n.tradeInStatusCode))
+            Changes.Kind.TRADE_IN_INSPECTION -> arrow(Labels.tradeInInspection(ctx, o?.tradeInInspectionCode), Labels.tradeInInspection(ctx, n.tradeInInspectionCode))
             Changes.Kind.TRADE_IN_OFFER -> (o?.tradeInOffer?.let { "${money(it, n.currency)} → " } ?: "") + money(n.tradeInOffer, n.currency)
             Changes.Kind.TASK_DONE -> ctx.getString(R.string.ch_task_done)
             Changes.Kind.TASK_TODO -> ctx.getString(R.string.ch_task_todo, c.task!!.status)

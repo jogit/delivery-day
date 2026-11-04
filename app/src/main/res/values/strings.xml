@@ -154,6 +154,10 @@
     <string name="tradein_offer_accepted">Trade-in offer accepted</string>
     <string name="tradein_offer_expired">Trade-in offer expired</string>
     <string name="tradein_offer_pending">Trade-in offer pending</string>
+    <string name="tradein_inspection_third_party">Vehicle inspection: continue with a third-party partner</string>
+    <string name="tradein_inspection_completed">Inspection completed</string>
+    <string name="trade_in_inspection">Trade-in inspection: %1$s</string>
+    <string name="ch_trade_in_inspection">Trade-in inspection</string>
     <string name="trim_mty85">Rear-Wheel Drive · Standard</string>
     <string name="paint_ppsw">Pearl White Multi-Coat</string>
     <string name="paint_pbsb">Solid Black</string>
