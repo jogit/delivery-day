@@ -11,6 +11,7 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.DrawScope
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.drawText
 import androidx.compose.ui.text.font.FontWeight
@@ -20,7 +21,6 @@ import androidx.compose.ui.unit.sp
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
-import java.util.Locale
 import androidx.compose.ui.res.stringResource
 
 /**
@@ -29,7 +29,7 @@ import androidx.compose.ui.res.stringResource
  */
 @Composable
 fun DeliveryTimeline(ordered: LocalDate, today: LocalDate, windowStart: LocalDate, windowEnd: LocalDate) {
-    val monthOnly = DateTimeFormatter.ofPattern("MMM", Locale.getDefault())
+    val monthOnly = DateTimeFormatter.ofPattern("MMM", LocalConfiguration.current.locales[0])
     val tOrder = stringResource(R.string.timeline_order)
     val tEarliest = stringResource(R.string.timeline_earliest)
     val tLatest = stringResource(R.string.timeline_latest)

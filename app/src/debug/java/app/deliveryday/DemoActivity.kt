@@ -53,7 +53,15 @@ class DemoActivity : Activity() {
         val order = JSONObject().put("referenceNumber", "RN-DEMO-0001").put("orderStatus", "BOOKED")
             .put("modelCode", "my").put("countryCode", "FR").put("vin", "DEMO-VIN-12345678")
             .put("mktOptions", "APBS,IBB6,PPSB,SC04,MDLY,WY19P,MTY85,STY5B,CPF0,TW01")
-        val snapshot = JSONObject().put("RN-DEMO-0001", JSONObject().put("order", order)
+        // "state=assigned|appointment|delivered" picks the step reached (default: car assigned, no appointment yet).
+        val state = intent.getStringExtra("state")
+        if (state == "assigned") order.remove("vin")
+        if (state == "appointment" || state == "delivered")
+            tasks.getJSONObject("scheduling").put("isValidAppointment", true)
+        if (state == "delivered") order.put("orderStatus", "DELIVERED")
+        val news = intent.getStringExtra("news")
+        if (news == "status") order.put("orderStatus", "IN_TRANSIT")
+        val snapshot = JSONObject().put("RN-DEMO-0001",JSONObject().put("order", order)
             .put("tasks", JSONObject().put("tasks", tasks)).put("lang", Locale.getDefault().language))
 
         Store(this).apply {
@@ -64,7 +72,24 @@ class DemoActivity : Activity() {
             lastCheck = now - 12 * 60_000
             tradeInEstimate = 8500.0
             tradeInBaseline = 41990.0
-            lastNews = getString(R.string.ch_vin_assigned)
+            // Banner computed like a real check would, from an earlier state differing by what "news" says:
+            // window, status, place, tradein, task (default: VIN not assigned yet).
+            val earlier = JSONObject(snapshot.toString()).getJSONObject("RN-DEMO-0001")
+            val earlierTasks = earlier.getJSONObject("tasks").getJSONObject("tasks")
+            when (news) {
+                "window" -> earlierTasks.getJSONObject("scheduling")
+                    .put("deliveryWindowDisplay", "${today.plusDays(28).format(windowFormat)} - ${today.plusDays(55).format(windowFormat)}"
+                        .replaceFirstChar(Char::titlecase))
+                "status" -> earlier.getJSONObject("order").put("orderStatus", "BOOKED")
+                "place" -> earlierTasks.getJSONObject("scheduling")
+                    .put("deliveryAddressTitle", if (fr) "Centre de Livraison Tesla Paris" else "Tesla Delivery Center Paris")
+                "tradein" -> earlierTasks.getJSONObject("tradeIn").put("status", "FINAL_OFFER_PENDING")
+                "task" -> earlierTasks.getJSONObject("financing").put("complete", false)
+                else -> earlier.getJSONObject("order").remove("vin")
+            }
+            val earlierSnapshot = JSONObject().put("RN-DEMO-0001", earlier)
+            lastNews = Changes.summarize(earlierSnapshot.toString(), snapshot.toString())
+                .takeIf { it.changes.isNotEmpty() }?.let { ChangeText.headline(this@DemoActivity, it) }
             lastNewsAt = now - 2 * day
             addHistory(listOf(getString(R.string.task_financing) to getString(R.string.ch_task_done)), now - 20 * day)
             addHistory(listOf(getString(R.string.ch_window) to (if (fr) "5 nov. – 2 déc. → " else "Nov 5 – Dec 2 → ") +

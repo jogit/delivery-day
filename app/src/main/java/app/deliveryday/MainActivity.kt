@@ -79,6 +79,10 @@ class MainActivity : ComponentActivity() {
         fun reload() {
             lastError = store.lastError; last = store.lastCheck; snapshot = store.snapshot
             if (store.needsLogin) connected = false
+            if (connected && Orders.parse(snapshot).isNotEmpty()) {
+                store.newsSeenAt = store.lastNewsAt
+                OrderWidget.updateAll(this@MainActivity)
+            }
         }
 
         // Back in the foreground: the background worker may have checked meanwhile (local read, no network call).

@@ -6,14 +6,10 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.graphics.Typeface
 import android.os.Build
 import android.os.Bundle
 import android.util.SizeF
-import android.text.SpannableStringBuilder
-import android.text.Spanned
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
+import android.view.View
 import android.widget.RemoteViews
 import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
@@ -83,25 +79,33 @@ class OrderWidget : AppWidgetProvider() {
             }
         }
 
-        /** "✓ Ordered › Car assigned › Appt. › Delivered": done in green, current step in bold white. */
-        private fun steps(ctx: Context, o: OrderInfo): CharSequence {
-            val labels = listOf(R.string.step_ordered, R.string.step_assigned, R.string.step_appointment_short, R.string.step_delivered)
+        private val SEGMENTS = intArrayOf(R.id.w_seg1, R.id.w_seg2, R.id.w_seg3, R.id.w_seg4)
+
+        /** Four segments (done in green, current in amber, to come in grey) and "Step 2/4 · Car assigned". */
+        private fun steps(ctx: Context, v: RemoteViews, o: OrderInfo) {
+            // What the current step means: what we wait for, or what we have.
+            val labels = listOf(R.string.step_ordered, R.string.w_wait_assigned, R.string.w_wait_appointment, R.string.w_wait_delivery)
             val done = simpleSteps(o)
             val current = done.indexOfFirst { !it }
-            val sb = SpannableStringBuilder()
-            labels.forEachIndexed { i, id ->
-                if (i > 0) sb.append(" › ")
-                val start = sb.length
-                sb.append(if (done[i]) "✓ ${ctx.getString(id)}" else ctx.getString(id))
-                val color = when {
-                    done[i] -> ctx.getColor(R.color.green)
-                    i == current -> ctx.getColor(R.color.text)
-                    else -> ctx.getColor(R.color.muted)
-                }
-                sb.setSpan(ForegroundColorSpan(color), start, sb.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                if (i == current) sb.setSpan(StyleSpan(Typeface.BOLD), start, sb.length, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+            SEGMENTS.forEachIndexed { i, id ->
+                v.setInt(id, "setBackgroundResource", when {
+                    done[i] -> R.drawable.widget_seg_done
+                    i == current -> R.drawable.widget_seg_current
+                    else -> R.drawable.widget_seg_todo
+                })
             }
-            return sb
+            if (current < 0) {
+                v.setTextViewText(R.id.w_steps_done, "✓ ${ctx.getString(R.string.step_delivered)}")
+                show(v, R.id.w_steps_done, R.id.w_steps)
+            } else {
+                v.setTextViewText(R.id.w_steps, ctx.getString(R.string.w_step, current + 1, labels.size, ctx.getString(labels[current])))
+                show(v, R.id.w_steps, R.id.w_steps_done)
+            }
+        }
+
+        private fun show(v: RemoteViews, shown: Int, hidden: Int) {
+            v.setViewVisibility(shown, View.VISIBLE)
+            v.setViewVisibility(hidden, View.GONE)
         }
 
         private fun build(ctx: Context, refreshing: Boolean, small: Boolean): RemoteViews {
@@ -113,11 +117,11 @@ class OrderWidget : AppWidgetProvider() {
             val today = LocalDate.now()
             if (!small) v.setTextViewText(R.id.w_updated, if (refreshing) ctx.getString(R.string.refreshing) else Fmt.updated(ctx, store.lastCheck, today))
 
-            // Latest news, highlighted for a week ("🆕 VIN assigned · 2 days ago").
+            // Highlight unread news for at most 24 hours; then return to the quiet row.
             val news = store.lastNews
             val newsDay = store.lastNewsAt.takeIf { it > 0 }?.let(Fmt::day)
             val newsAge = newsDay?.let { ChronoUnit.DAYS.between(it, today) }
-            val freshNews = if (news != null && newsAge != null && newsAge <= 7)
+            val freshNews = if (news != null && newsAge != null && News.highlighted(store.lastNewsAt, store.newsSeenAt))
                 // The title's emoji ("🚗 Window…") would duplicate 🆕.
                 "🆕 ${news.dropWhile { !it.isLetter() }} · ${Fmt.ago(ctx, newsAge)}" else null
 
@@ -126,38 +130,47 @@ class OrderWidget : AppWidgetProvider() {
                 v.setTextViewText(R.id.w_countdown, ctx.getString(R.string.w_open_app))
                 if (!small) {
                     v.setTextViewText(R.id.w_model, ctx.getString(R.string.app_name))
-                    v.setTextViewText(R.id.w_news, "")
-                    v.setTextViewText(R.id.w_steps, "")
+                    listOf(R.id.w_news, R.id.w_news_fresh, R.id.w_steps, R.id.w_steps_done).forEach { v.setViewVisibility(it, View.GONE) }
+                    SEGMENTS.forEach { v.setInt(it, "setBackgroundResource", R.drawable.widget_seg_todo) }
                 }
             } else if (small) {
-                v.setTextViewText(R.id.w_window,
-                    if (o.windowStart != null && o.windowEnd != null) "${Fmt.dayMonth(o.windowStart)} → ${Fmt.dayMonth(o.windowEnd)}"
-                    else o.window ?: ctx.getString(R.string.w_no_window))
-                v.setTextViewText(R.id.w_countdown, freshNews ?: countdown(ctx, o, today))
+                v.setTextViewText(R.id.w_window, when {
+                    o.delivered -> ctx.getString(R.string.w_delivered)
+                    o.windowStart != null && o.windowEnd != null -> "${Fmt.dayMonth(o.windowStart)} → ${Fmt.dayMonth(o.windowEnd)}"
+                    else -> o.window ?: ctx.getString(R.string.w_no_window)
+                })
+                // Delivered: the window and the countdown ("Appointment set!") are over.
+                v.setTextViewText(R.id.w_countdown, freshNews ?: if (o.delivered) "" else countdown(ctx, o, today))
             } else {
                 v.setTextViewText(R.id.w_model, ctx.getString(R.string.w_title, o.model) +
                     if (orders.size > 1) " (+${orders.size - 1})" else "")
                 // When?
-                if (o.windowStart != null && o.windowEnd != null) {
+                // An empty countdown line would leave a gap.
+                fun countdownText(text: String) {
+                    v.setTextViewText(R.id.w_countdown, text)
+                    v.setViewVisibility(R.id.w_countdown, if (text.isEmpty()) View.GONE else View.VISIBLE)
+                }
+                if (o.delivered) {
+                    v.setTextViewText(R.id.w_window, ctx.getString(R.string.w_delivered))
+                    countdownText("")
+                } else if (o.windowStart != null && o.windowEnd != null) {
                     v.setTextViewText(R.id.w_window, ctx.getString(R.string.w_between, Fmt.dayMonth(o.windowStart), Fmt.dayMonth(o.windowEnd)))
-                    v.setTextViewText(R.id.w_countdown, countdown(ctx, o, today))
+                    countdownText(countdown(ctx, o, today))
                 } else {
                     v.setTextViewText(R.id.w_window, o.window ?: ctx.getString(R.string.w_no_window))
-                    v.setTextViewText(R.id.w_countdown, "")
+                    countdownText("")
                 }
                 // Anything new?
                 if (freshNews != null) {
-                    v.setTextViewText(R.id.w_news, freshNews)
-                    v.setInt(R.id.w_news, "setBackgroundResource", R.drawable.widget_news_fresh)
-                    v.setTextColor(R.id.w_news, ctx.getColor(R.color.text))
+                    v.setTextViewText(R.id.w_news_fresh, freshNews)
+                    show(v, R.id.w_news_fresh, R.id.w_news)
                 } else {
                     val since = newsDay ?: o.orderedOn
                     v.setTextViewText(R.id.w_news, since?.let { ctx.getString(R.string.w_nothing_since, Fmt.dayMonth(it)) } ?: ctx.getString(R.string.news_none))
-                    v.setInt(R.id.w_news, "setBackgroundResource", R.drawable.widget_news_quiet)
-                    v.setTextColor(R.id.w_news, ctx.getColor(R.color.muted))
+                    show(v, R.id.w_news, R.id.w_news_fresh)
                 }
                 // Where are we?
-                v.setTextViewText(R.id.w_steps, steps(ctx, o))
+                steps(ctx, v, o)
             }
             val open = PendingIntent.getActivity(ctx, 0, Intent(ctx, MainActivity::class.java), PendingIntent.FLAG_IMMUTABLE)
             v.setOnClickPendingIntent(R.id.widget_root, open)

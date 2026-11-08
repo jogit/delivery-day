@@ -90,13 +90,13 @@ private fun Foldable(title: String, summary: String, content: @Composable Column
     }
 }
 
-/** Like the widget: the latest news (highlighted for 7 days) or "Nothing new since…". */
+/** Show the latest news for its first 24 hours, then return to the quiet summary. */
 @Composable
 private fun NewsBanner(news: String?, newsAt: Long, orderedOn: LocalDate?, today: LocalDate) {
     val ctx = LocalContext.current
     val newsDay = newsAt.takeIf { it > 0 }?.let(Fmt::day)
     val age = newsDay?.let { ChronoUnit.DAYS.between(it, today) }
-    val fresh = news != null && age != null && age <= 7
+    val fresh = news != null && age != null && News.highlighted(newsAt, 0)
     val shape = RoundedCornerShape(16.dp)
     Row(
         Modifier.fillMaxWidth().clip(shape)
@@ -298,6 +298,9 @@ private fun PaymentCard(o: OrderInfo, estimate: Double?, baseline: Double?, onEs
             }
             Labels.tradeInStatus(ctx, o.tradeInStatusCode)?.let {
                 Text(stringResource(R.string.trade_in_status, it), color = TeslaColors.Muted, fontSize = 12.sp)
+            }
+            Labels.tradeInInspection(ctx, o.tradeInInspectionCode)?.let {
+                Text(stringResource(R.string.trade_in_inspection, it), color = TeslaColors.Muted, fontSize = 12.sp)
             }
         }
     }
