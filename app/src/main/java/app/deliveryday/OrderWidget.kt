@@ -117,11 +117,11 @@ class OrderWidget : AppWidgetProvider() {
             val today = LocalDate.now()
             if (!small) v.setTextViewText(R.id.w_updated, if (refreshing) ctx.getString(R.string.refreshing) else Fmt.updated(ctx, store.lastCheck, today))
 
-            // Latest news, highlighted for a week ("🆕 VIN assigned · 2 days ago").
+            // Highlight unread news for at most 24 hours; then return to the quiet row.
             val news = store.lastNews
             val newsDay = store.lastNewsAt.takeIf { it > 0 }?.let(Fmt::day)
             val newsAge = newsDay?.let { ChronoUnit.DAYS.between(it, today) }
-            val freshNews = if (news != null && newsAge != null && newsAge <= 7)
+            val freshNews = if (news != null && newsAge != null && News.highlighted(store.lastNewsAt, store.newsSeenAt))
                 // The title's emoji ("🚗 Window…") would duplicate 🆕.
                 "🆕 ${news.dropWhile { !it.isLetter() }} · ${Fmt.ago(ctx, newsAge)}" else null
 
