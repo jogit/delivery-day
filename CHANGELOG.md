@@ -2,6 +2,13 @@
 
 The section of the tagged version is used as the release notes (see `RELEASING.md`).
 
+## 0.0.8
+
+- Widget: highlight new updates for at most 24 hours, until the app is opened. Afterwards, return to the quiet "Nothing new since…" summary; history is preserved.
+- Limit the app's news highlight to the first 24 hours as well.
+- Update OkHttp to 5.5.1, Gradle to 9.8.2 and the Android Gradle plugin to 9.5.1.
+- Update the GitHub Pages deployment actions.
+
 ## 0.0.7
 
 - Translate the trade-in offer pending and third-party inspection statuses in French and English.
