@@ -12,7 +12,7 @@
 
 Android app to follow a Tesla order until delivery: delivery window with a countdown and a
 timeline, "anything new?" banner, change history, payment and trade-in, Tesla tasks, and a
-home screen widget. Readable notifications only for changes that matter (VIN assigned,
+home screen widget (light or dark, like your phone). Readable notifications only for changes that matter (VIN assigned,
 delivery window, appointment, amount due, trade-in offer…).
 
 Available in English and French (follows the phone's language).
@@ -25,6 +25,7 @@ Available in English and French (follows the phone's language).
 <p>
   <img src="docs/screenshots/widget-en-2rows.png" width="390" alt="Home screen widget, two rows">
   <img src="docs/screenshots/widget-en-1row.png" width="390" alt="Home screen widget, one row">
+  <img src="docs/screenshots/widget-en-2rows-light.png" width="390" alt="Home screen widget, light theme">
 </p>
 <p>
   <img src="docs/screenshots/notification-en.png" width="390" alt="Notification: VIN assigned and delivery window changed">

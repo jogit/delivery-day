@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Light theme; values-night/colors.xml has the dark one. The widget follows the phone's theme. -->
 <resources>
     <color name="icon_bg">#FF16181C</color>
-    <color name="tesla_red">#FFE82127</color>
-    <color name="text">#FFF2F3F5</color>
-    <color name="muted">#FF9AA0A8</color>
-    <color name="amber">#FFFFB547</color>
-    <color name="green">#FF3DDC84</color>
+    <color name="tesla_red">#FFD81F26</color>
+    <color name="text">#FF16181C</color>
+    <color name="muted">#FF555B64</color>
+    <color name="amber">#FFB86E00</color>
+    <color name="green">#FF1B8F4E</color>
+    <color name="widget_bg_start">#FFE6E9ED</color>
+    <color name="widget_bg_end">#FFD8DCE2</color>
+    <color name="widget_bg_stroke">#FFC9CDD4</color>
+    <color name="widget_chip">#FFF4F5F7</color>
+    <color name="widget_button">#FFF4F5F7</color>
+    <color name="widget_segment_todo">#FFC2C7CE</color>
+    <color name="widget_fresh_fill">#26B86E00</color>
+    <color name="widget_fresh_stroke">#80B86E00</color>
 </resources>

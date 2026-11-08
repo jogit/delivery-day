@@ -88,6 +88,11 @@ class Store(private val context: Context) {
         get() = prefs.getLong("lastNewsAt", 0)
         set(v) = prefs.edit().putLong("lastNewsAt", v).apply()
 
+    /** Timestamp of the latest news displayed in the app (never a wall-clock acknowledgement). */
+    var newsSeenAt: Long
+        get() = prefs.getLong("newsSeenAt", 0)
+        set(v) = prefs.edit().putLong("newsSeenAt", v).apply()
+
     data class Event(val at: Long, val title: String, val detail: String)
 
     /** History of important changes, most recent first (100 max). */

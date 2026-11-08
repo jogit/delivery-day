@@ -90,7 +90,6 @@
     <string name="step_ordered">Ordered</string>
     <string name="step_assigned">Car assigned</string>
     <string name="step_appointment">Appointment</string>
-    <string name="step_appointment_short">Appt.</string>
     <string name="step_delivered">Delivered</string>
 
     <!-- Payment -->
@@ -155,6 +154,10 @@
     <string name="tradein_offer_accepted">Trade-in offer accepted</string>
     <string name="tradein_offer_expired">Trade-in offer expired</string>
     <string name="tradein_offer_pending">Trade-in offer pending</string>
+    <string name="tradein_inspection_third_party">Vehicle inspection: continue with a third-party partner</string>
+    <string name="tradein_inspection_completed">Inspection completed</string>
+    <string name="trade_in_inspection">Trade-in inspection: %1$s</string>
+    <string name="ch_trade_in_inspection">Trade-in inspection</string>
     <string name="trim_mty85">Rear-Wheel Drive · Standard</string>
     <string name="paint_ppsw">Pearl White Multi-Coat</string>
     <string name="paint_pbsb">Solid Black</string>
@@ -230,4 +233,15 @@
     <string name="w_not_connected">Not signed in</string>
     <string name="w_open_app">Open the app to sign in</string>
     <string name="w_nothing_since">Nothing new since %1$s</string>
+    <string name="w_step">Step %1$d/%2$d · %3$s</string>
+    <string name="w_delivered">Delivered!</string>
+    <string name="wh_car_assigned">Car assigned (VIN)</string>
+    <string name="wh_car_changed">Car changed (VIN)</string>
+    <string name="wh_status">Status: %1$s</string>
+    <string name="wh_window">Dates changed</string>
+    <string name="wh_place">Delivery place changed</string>
+    <string name="wh_trade_in">Trade-in updated</string>
+    <string name="w_wait_assigned">Waiting for your car (VIN)</string>
+    <string name="w_wait_appointment">Waiting for the appointment</string>
+    <string name="w_wait_delivery">Waiting for delivery</string>
 </resources>

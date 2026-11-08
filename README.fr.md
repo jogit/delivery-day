@@ -12,7 +12,7 @@
 
 Application Android pour suivre une commande Tesla jusqu'à la livraison : fenêtre de livraison
 avec compte à rebours et frise, bandeau « du nouveau ? », historique des changements, paiement
-et reprise, démarches Tesla, et un widget pour l'écran d'accueil. Des notifications lisibles,
+et reprise, démarches Tesla, et un widget pour l'écran d'accueil (clair ou sombre, comme le téléphone). Des notifications lisibles,
 uniquement pour ce qui compte (VIN attribué, fenêtre de livraison, rendez-vous, montant à payer,
 offre de reprise…).
 
@@ -26,6 +26,7 @@ Disponible en français et en anglais (suit la langue du téléphone).
 <p>
   <img src="docs/screenshots/widget-fr-2rows.png" width="390" alt="Widget d'écran d'accueil, deux lignes">
   <img src="docs/screenshots/widget-fr-1row.png" width="390" alt="Widget d'écran d'accueil, une ligne">
+  <img src="docs/screenshots/widget-fr-2rows-light.png" width="390" alt="Widget d'écran d'accueil, thème clair">
 </p>
 <p>
   <img src="docs/screenshots/notification-fr.png" width="390" alt="Notification : VIN attribué et fenêtre de livraison modifiée">

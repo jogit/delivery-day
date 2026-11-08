@@ -105,6 +105,42 @@ class OrdersParseTest {
         assertEquals(listOf(true, false, false, false), simpleSteps(Orders.parse(snapshot()).single()))
         assertEquals(listOf(true, true, true, false), simpleSteps(Orders.parse(snapshot(vin = "V1", appointment = true)).single()))
     }
+
+    private fun edited(appointment: Boolean = false, edit: (JSONObject) -> Unit): OrderInfo {
+        val root = JSONObject(snapshot(appointment = appointment))
+        edit(root.getJSONObject(REF))
+        return Orders.parse(root.toString()).single()
+    }
+
+    private fun JSONObject.scheduling() = getJSONObject("tasks").getJSONObject("tasks").getJSONObject("scheduling")
+
+    @Test fun `appointment read from the date, time and address text`() {
+        val o = edited(appointment = true) { it.scheduling().put("apptDateTimeAddressStr", "Tue, Nov 4 at 10:00 AM\nTesla Lyon") }
+        assertEquals("Tue, Nov 4 at 10:00 AM", o.appointmentText)
+    }
+
+    @Test fun `appointment fields win over the address text`() {
+        val o = edited(appointment = true) {
+            it.scheduling().put("apptDateTimeAddressStr", "Tue, Nov 4 at 10:00 AM\nTesla Lyon").put("deliveryAppointmentDate", "2026-11-04T10:00")
+        }
+        assertEquals("2026-11-04T10:00", o.appointmentText)
+    }
+
+    @Test fun `no appointment text without a valid appointment`() {
+        val o = edited { it.scheduling().put("apptDateTimeAddressStr", "Tue, Nov 4 at 10:00 AM\nTesla Lyon") }
+        assertFalse(o.appointment)
+        assertNull(o.appointmentText)
+    }
+
+    private fun JSONObject.tasks() = getJSONObject("tasks").getJSONObject("tasks")
+
+    @Test fun `delivered once the delivery acceptance step is complete`() {
+        assertFalse(edited { }.delivered)
+        assertTrue(edited { it.tasks().put("deliveryAcceptance", JSONObject().put("complete", true)) }.delivered)
+        assertFalse(edited { it.tasks().put("deliveryAcceptance", JSONObject().put("complete", false).put("enabled", true)) }.delivered)
+    }
+
+    @Test fun `delivered when Tesla says so`() = assertTrue(edited { it.getJSONObject("order").put("orderStatus", "DELIVERED") }.delivered)
 }
 
 class ChangesTest {

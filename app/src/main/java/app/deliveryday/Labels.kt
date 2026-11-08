@@ -31,8 +31,11 @@ object Labels {
         "NO_ESTIMATE_SELF_INSPECTION" to R.string.tradein_no_offer, "OFFER_READY" to R.string.tradein_offer_ready,
         "OFFER_ACCEPTED" to R.string.tradein_offer_accepted, "OFFER_EXPIRED" to R.string.tradein_offer_expired,
         "FINAL_OFFER_PENDING" to R.string.tradein_offer_pending,
+        "TRADEIN_OFFER_PENDING" to R.string.tradein_offer_pending,
+        "SELF_INSPECTION_CONTINUE_WITH_THIRD_PARTY" to R.string.tradein_inspection_third_party,
     )
     private val trims = mapOf("MTY85" to R.string.trim_mty85)
+    private val tradeInInspection = mapOf("INSPECTION_COMPLETED" to R.string.tradein_inspection_completed)
     private val paints = mapOf(
         "PPSW" to R.string.paint_ppsw, "PBSB" to R.string.paint_pbsb, "PMNG" to R.string.paint_pmng,
         "PN01" to R.string.paint_pn01, "PPSB" to R.string.paint_ppsb, "PR01" to R.string.paint_pr01,
@@ -58,6 +61,7 @@ object Labels {
         tradeInStatus[c]?.let(ctx::getString) ?: c.lowercase().replace('_', ' ').replaceFirstChar(Char::titlecase)
     }
     fun trim(ctx: Context, code: String?) = ctx.lookup(trims, code)
+    fun tradeInInspection(ctx: Context, code: String?) = ctx.lookup(tradeInInspection, code)
     /** Short trim name for headers ("RWD" from "RWD · Standard"). */
     fun trimShort(ctx: Context, code: String?) = trim(ctx, code)?.substringBefore(" ·")
     fun paint(ctx: Context, code: String?) = ctx.lookup(paints, code)
