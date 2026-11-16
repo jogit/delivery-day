@@ -2,6 +2,13 @@
 
 The section of the tagged version is used as the release notes (see `RELEASING.md`).
 
+## 0.0.9
+
+- Read Tesla's selected trade-in valuation as the official offer, replacing the manual estimate without deducting the trade-in twice.
+- Hide the previous manual estimate once an official offer is available.
+- Translate the completed offer acceptance status.
+- Update Gradle to 9.9.0.
+
 ## 0.0.8
 
 - Widget: highlight new updates for at most 24 hours, until the app is opened. Afterwards, return to the quiet "Nothing new since…" summary; history is preserved.
