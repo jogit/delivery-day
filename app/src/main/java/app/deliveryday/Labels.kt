@@ -30,6 +30,7 @@ object Labels {
     private val tradeInStatus = mapOf(
         "NO_ESTIMATE_SELF_INSPECTION" to R.string.tradein_no_offer, "OFFER_READY" to R.string.tradein_offer_ready,
         "OFFER_ACCEPTED" to R.string.tradein_offer_accepted, "OFFER_EXPIRED" to R.string.tradein_offer_expired,
+        "OFFER_ACCEPTED_COMPLETE" to R.string.tradein_offer_accepted,
         "FINAL_OFFER_PENDING" to R.string.tradein_offer_pending,
         "TRADEIN_OFFER_PENDING" to R.string.tradein_offer_pending,
         "SELF_INSPECTION_CONTINUE_WITH_THIRD_PARTY" to R.string.tradein_inspection_third_party,

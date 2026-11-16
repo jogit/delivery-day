@@ -103,7 +103,6 @@
     <string name="trade_in_official">Reprise (offre Tesla)</string>
     <string name="trade_in_estimate">Reprise (estimation)</string>
     <string name="trade_in_deducted">✓ Déjà déduite par Tesla du montant à payer</string>
-    <string name="your_estimate">Votre estimation : %1$s</string>
     <string name="trade_in_input">Reprise estimée (%1$s)</string>
     <string name="trade_in_add">+ Saisir le montant de reprise estimé</string>
     <string name="trade_in_edit">Modifier l\'estimation de reprise</string>

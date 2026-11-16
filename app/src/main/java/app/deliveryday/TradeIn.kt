@@ -9,11 +9,14 @@ object TradeIn {
 
     /**
      * Amount of the official offer in the "tradeIn" task, if Tesla made one.
-     * The exact field name is unknown until an offer exists: look for a number
+     * Read the selected vehicle valuation first, then fall back to a number
      * > 0 under a key like offer/quote/estimate…amount/value/price. The trade-in bonus
      * (tradeInUpliftDetails) is ignored.
      */
     fun officialOffer(tradeIn: JSONObject): Double? {
+        // Tesla's selected valuation is authoritative; other valuations may be historical.
+        val selected = tradeIn.optJSONObject("tradeInVehicle")?.optJSONObject("SelectedValuation")
+        selected?.optDouble("Value")?.takeIf { it.isFinite() && it > 0 }?.let { return it }
         val found = mutableListOf<Pair<String, Double>>()
         fun walk(v: Any?, path: String) {
             when (v) {

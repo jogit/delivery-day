@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
-import kotlin.math.abs
 
 /** The 4 main steps, in plain words (same as the widget). */
 fun simpleSteps(o: OrderInfo) = listOf(true, o.vin != null, o.appointment, o.delivered)
@@ -274,8 +273,6 @@ private fun PaymentCard(o: OrderInfo, estimate: Double?, baseline: Double?, onEs
                     AmountRow(stringResource(R.string.amount_requested), Fmt.money(o.amountDue, o.currency), TeslaColors.Text)
                     AmountRow(label, "− " + Fmt.money(p.value, o.currency), TeslaColors.Green)
                 }
-                if (p.official && estimate != null && abs(estimate - p.value) >= 1)
-                    Text(stringResource(R.string.your_estimate, Fmt.money(estimate, o.currency)), color = TeslaColors.Muted, fontSize = 12.sp)
             }
             if (p.official) {
                 // The official offer replaces the estimate: nothing to type anymore.

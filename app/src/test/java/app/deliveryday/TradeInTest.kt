@@ -25,6 +25,31 @@ class TradeInTest {
         assertEquals(7250.0, TradeIn.officialOffer(t)!!, 0.001)
     }
 
+    @Test fun `selected Tesla valuation replaces manual estimate`() {
+        val t = JSONObject("""{"status":"OFFER_ACCEPTED_COMPLETE","tradeInVehicle":{
+            "SelectedValuation":{"Value":12000,"CurrencyType":"EUR"},
+            "Valuations":[{"Value":15000}]}}""")
+        val offer = TradeIn.officialOffer(t)
+        assertEquals(12000.0, offer!!, 0.001)
+        val p = TradeIn.payment(28000.0, 15000.0, offer, 40000.0)
+        assertTrue(p.official)
+        assertTrue(p.deductedByTesla)
+        assertEquals(12000.0, p.value!!, 0.001)
+        assertEquals(28000.0, p.remaining!!, 0.001)
+    }
+
+    @Test fun `selected valuation takes priority over an older offer`() {
+        val t = JSONObject("""{"offerAmount":15000,"tradeInVehicle":{
+            "SelectedValuation":{"Value":"12000"}}}""")
+        assertEquals(12000.0, TradeIn.officialOffer(t)!!, 0.001)
+    }
+
+    @Test fun `unselected valuations are not an official offer`() {
+        val t = JSONObject("""{"tradeInVehicle":{"SelectedValuation":{"Value":null},
+            "Valuations":[{"Value":15000}]}}""")
+        assertNull(TradeIn.officialOffer(t))
+    }
+
     @Test fun `trade-in bonus is not an offer`() {
         val t = JSONObject().put("tradeInUpliftDetails", JSONObject().put("amount", 1500))
         assertNull(TradeIn.officialOffer(t))

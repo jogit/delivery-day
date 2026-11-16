@@ -101,7 +101,6 @@
     <string name="trade_in_official">Trade-in (Tesla offer)</string>
     <string name="trade_in_estimate">Trade-in (estimate)</string>
     <string name="trade_in_deducted">✓ Already deducted by Tesla from the amount due</string>
-    <string name="your_estimate">Your estimate: %1$s</string>
     <string name="trade_in_input">Estimated trade-in (%1$s)</string>
     <string name="trade_in_add">+ Enter your estimated trade-in value</string>
     <string name="trade_in_edit">Edit trade-in estimate</string>
