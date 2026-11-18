@@ -247,14 +247,18 @@ private fun StateDot(state: TaskState, size: Int = 22) {
 private fun PaymentCard(o: OrderInfo, estimate: Double?, baseline: Double?, onEstimate: (Double?) -> Unit) {
     var editing by remember { mutableStateOf(false) }
     var input by remember(estimate) { mutableStateOf(estimate?.let { "%.0f".format(it) } ?: "") }
-    val p = TradeIn.payment(o.amountDue, estimate, o.tradeInOffer, baseline)
+    val offerAccepted = o.tradeInStatusCode == "OFFER_ACCEPTED" ||
+        o.tradeInStatusCode == "OFFER_ACCEPTED_COMPLETE" ||
+        o.tradeInInspectionCode == "FINAL_OFFER_ACCEPTED"
+    val p = TradeIn.payment(o.amountDue, estimate, o.tradeInOffer, baseline, offerAccepted)
     val ctx = LocalContext.current
     Section(stringResource(R.string.section_payment)) {
         p.remaining?.let {
             Text(
                 stringResource(when {
                     p.deductedByTesla -> R.string.remaining_included
-                    p.value != null -> R.string.remaining_after_trade_in
+                    p.subtractsTradeIn -> R.string.remaining_after_trade_in
+                    offerAccepted -> R.string.amount_requested
                     else -> R.string.remaining
                 }),
                 color = TeslaColors.Muted, fontSize = 13.sp,
@@ -269,9 +273,11 @@ private fun PaymentCard(o: OrderInfo, estimate: Double?, baseline: Double?, onEs
                 if (p.deductedByTesla) {
                     AmountRow(label, Fmt.money(p.value, o.currency), TeslaColors.Green)
                     Text(stringResource(R.string.trade_in_deducted), color = TeslaColors.Green, fontSize = 12.sp)
-                } else {
+                } else if (p.subtractsTradeIn) {
                     AmountRow(stringResource(R.string.amount_requested), Fmt.money(o.amountDue, o.currency), TeslaColors.Text)
                     AmountRow(label, "− " + Fmt.money(p.value, o.currency), TeslaColors.Green)
+                } else {
+                    AmountRow(label, Fmt.money(p.value, o.currency), TeslaColors.Green)
                 }
             }
             if (p.official) {

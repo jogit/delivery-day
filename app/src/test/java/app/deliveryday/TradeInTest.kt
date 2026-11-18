@@ -57,35 +57,42 @@ class TradeInTest {
 
     // Tesla asks for the full amount without the trade-in: subtract the estimate.
     @Test fun `estimate not deducted yet`() {
-        val p = TradeIn.payment(amountDue = 33983.76, estimate = 7400.0, offer = null, baseline = 33983.76)
+        val p = TradeIn.payment(amountDue = 38125.42, estimate = 7400.0, offer = null, baseline = 38125.42)
         assertFalse(p.deductedByTesla); assertFalse(p.official)
-        assertEquals(26583.76, p.remaining!!, 0.001)
+        assertEquals(30725.42, p.remaining!!, 0.001)
     }
 
     // Official offer but unchanged Tesla amount: subtract the offer (not the estimate).
     @Test fun `official offer wins`() {
-        val p = TradeIn.payment(33983.76, 7400.0, 7250.0, 33983.76)
+        val p = TradeIn.payment(38125.42, 7400.0, 7250.0, 38125.42)
         assertTrue(p.official); assertFalse(p.deductedByTesla)
-        assertEquals(26733.76, p.remaining!!, 0.001)
+        assertEquals(30875.42, p.remaining!!, 0.001)
     }
 
     // Tesla lowered its amount by the trade-in value: never subtract it a second time.
     @Test fun `no double deduction`() {
-        val p = TradeIn.payment(amountDue = 26733.76, estimate = 7400.0, offer = 7250.0, baseline = 33983.76)
+        val p = TradeIn.payment(amountDue = 30875.42, estimate = 7400.0, offer = 7250.0, baseline = 38125.42)
         assertTrue(p.deductedByTesla)
-        assertEquals(26733.76, p.remaining!!, 0.001)
+        assertEquals(30875.42, p.remaining!!, 0.001)
+    }
+
+    @Test fun `accepted offer uses Tesla balance without a local baseline`() {
+        val p = TradeIn.payment(31275.42, null, 6850.0, null, offerAccepted = true)
+        assertFalse(p.deductedByTesla)
+        assertFalse(p.subtractsTradeIn)
+        assertEquals(31275.42, p.remaining!!, 0.001)
     }
 
     // A small price change (options, fees) is not a trade-in deduction.
     @Test fun `small price drop is not the trade-in`() {
-        val p = TradeIn.payment(33483.76, 7400.0, null, 33983.76)
+        val p = TradeIn.payment(37625.42, 7400.0, null, 38125.42)
         assertFalse(p.deductedByTesla)
-        assertEquals(26083.76, p.remaining!!, 0.001)
+        assertEquals(30225.42, p.remaining!!, 0.001)
     }
 
     @Test fun `no trade-in`() {
-        val p = TradeIn.payment(33983.76, null, null, null)
-        assertNull(p.value); assertEquals(33983.76, p.remaining!!, 0.001)
+        val p = TradeIn.payment(38125.42, null, null, null)
+        assertNull(p.value); assertEquals(38125.42, p.remaining!!, 0.001)
     }
 
     @Test fun `offer change is reported`() {

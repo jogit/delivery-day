@@ -50,7 +50,7 @@ class ChangesKindsTest {
         assertEquals(listOf(Changes.Kind.TRADE_IN_STATUS), kinds(snapshot(), tweak(tradeIn = { put("status", "ESTIMATE_READY") })))
 
     @Test fun `amount due change`() =
-        assertEquals(listOf(Changes.Kind.AMOUNT), kinds(snapshot(amountDue = 33983.76), snapshot(amountDue = 12000.0)))
+        assertEquals(listOf(Changes.Kind.AMOUNT), kinds(snapshot(amountDue = 38125.42), snapshot(amountDue = 12000.0)))
 
     @Test fun `new order`() {
         val c = Changes.summarize("{}", snapshot()).changes.single()

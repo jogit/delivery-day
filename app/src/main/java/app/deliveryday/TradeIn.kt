@@ -41,7 +41,9 @@ object TradeIn {
         val official: Boolean,
         /** Tesla already deducted the trade-in from its amount: don't subtract it twice. */
         val deductedByTesla: Boolean,
-        /** What is actually left to pay. */
+        /** Whether the displayed balance subtracts the trade-in locally. */
+        val subtractsTradeIn: Boolean,
+        /** Tesla's balance or a preview before the offer is accepted. */
         val remaining: Double?,
     )
 
@@ -49,15 +51,19 @@ object TradeIn {
      * [baseline] = amount requested by Tesla when the estimate was typed (trade-in not deducted).
      * If the current amount dropped by at least 80 % of the trade-in since, Tesla deducted it.
      */
-    fun payment(amountDue: Double?, estimate: Double?, offer: Double?, baseline: Double?): Payment {
+    fun payment(
+        amountDue: Double?,
+        estimate: Double?,
+        offer: Double?,
+        baseline: Double?,
+        offerAccepted: Boolean = false,
+    ): Payment {
         val value = offer ?: estimate
         val deducted = amountDue != null && baseline != null && value != null &&
             baseline - amountDue >= value * 0.8 && abs(baseline - amountDue) <= value * 1.5
-        val remaining = when {
-            amountDue == null -> null
-            value == null || deducted -> amountDue
-            else -> amountDue - value
-        }
-        return Payment(value, offer != null, deducted, remaining)
+        // After acceptance, Tesla's balance may already include the trade-in.
+        val deduction = value?.takeUnless { deducted || offerAccepted }
+        val remaining = amountDue?.let { it - (deduction ?: 0.0) }
+        return Payment(value, offer != null, deducted, deduction != null, remaining)
     }
 }

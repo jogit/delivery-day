@@ -16,7 +16,7 @@ const val REF = "RN000000001"
 fun snapshot(
     window: String? = "10 Décembre - 18 Février",
     vin: String? = null,
-    amountDue: Double = 33983.76,
+    amountDue: Double = 38125.42,
     appointment: Boolean = false,
     financingComplete: Boolean = true,
     lang: String = "fr",
@@ -87,7 +87,7 @@ class OrdersParseTest {
         assertEquals(d(2026, 8, 20), o.orderedOn)
         assertEquals(d(2026, 12, 10), o.windowStart)
         assertEquals(d(2027, 2, 18), o.windowEnd)
-        assertEquals(33983.76, o.amountDue!!, 0.001)
+        assertEquals(38125.42, o.amountDue!!, 0.001)
         assertEquals("Cash", o.paymentMethod)
         assertTrue(o.tradeIn)
         assertFalse(o.delivered)

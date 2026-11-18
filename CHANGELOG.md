@@ -2,6 +2,10 @@
 
 The section of the tagged version is used as the release notes (see `RELEASING.md`).
 
+## 0.0.10
+
+- Use Tesla's reported balance after a trade-in offer is accepted to prevent a second deduction on phones without a saved estimate.
+
 ## 0.0.9
 
 - Read Tesla's selected trade-in valuation as the official offer, replacing the manual estimate without deducting the trade-in twice.
