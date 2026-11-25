@@ -79,17 +79,24 @@ fun DeliveryTimeline(ordered: LocalDate, today: LocalDate, windowStart: LocalDat
             drawCircle(color, 5.dp.toPx(), Offset(px, axisY))
             if (!filled) drawCircle(TeslaColors.Card, 2.5.dp.toPx(), Offset(px, axisY))
         }
-        fun above(px: Float, top: String, bottom: String, style: TextStyle, align: Float) {
+        // [maxRight] keeps the label from running into a neighbour on its right.
+        fun above(px: Float, top: String, bottom: String, style: TextStyle, align: Float, maxRight: Float = right) {
             val a = measurer.measure(top, caption); val b = measurer.measure(bottom, style)
             val w = maxOf(a.size.width, b.size.width)
-            val lx = (px - w * align).coerceIn(left, right - w)
+            val lx = (px - w * align).coerceIn(left, right - w).coerceAtMost(maxRight - w)
             drawText(a, topLeft = Offset(lx + (w - a.size.width) * align, 0f))
             drawText(b, topLeft = Offset(lx + (w - b.size.width) * align, a.size.height.toFloat()))
         }
+        // Left edge of the "latest" label, so the narrow window's two labels never overlap.
+        val latestW = maxOf(
+            measurer.measure(tLatest, caption).size.width,
+            measurer.measure(Fmt.dayMonth(windowEnd), amber).size.width,
+        )
+        val latestLeft = (we - latestW).coerceIn(left, right - latestW)
         marker(left, TeslaColors.Green, true)
         above(left, tOrder, Fmt.dayMonth(ordered), label, 0f)
         marker(ws, TeslaColors.Amber, false)
-        above(ws, tEarliest, Fmt.dayMonth(windowStart), amber, 0.5f)
+        above(ws, tEarliest, Fmt.dayMonth(windowStart), amber, 0.5f, maxRight = latestLeft - 8.dp.toPx())
         marker(we, TeslaColors.Amber, false)
         above(we, tLatest, Fmt.dayMonth(windowEnd), amber, 1f)
 

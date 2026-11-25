@@ -2,6 +2,10 @@
 
 The section of the tagged version is used as the release notes (see `RELEASING.md`).
 
+## 0.0.11
+
+- Fix overlapping "Earliest" and "Latest" labels on the delivery timeline when the delivery window is narrow.
+
 ## 0.0.10
 
 - Use Tesla's reported balance after a trade-in offer is accepted to prevent a second deduction on phones without a saved estimate.
